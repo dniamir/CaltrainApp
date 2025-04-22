@@ -41,18 +41,12 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
   String _selectedStation = 'San Francisco';
   List<String> _arrivalTimes = [];
   bool _loading = false;
-  final String _apiKey = '7f3f26c8-c002-4131-9bc0-5794d15893ef';
+  final String _apiKey = '7f3f26c8-c002-4131-9bc0-5794d15893ef'; // <- Replace this!
 
   @override
   void initState() {
     super.initState();
     _fetchTrainTimes();
-  }
-
-  String _formatHour(int hour) {
-    if (hour == 0) return '12';
-    if (hour > 12) return '${hour - 12}';
-    return '$hour';
   }
 
   Future<void> _fetchTrainTimes() async {
@@ -64,56 +58,75 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
 
     try {
       final response = await http.get(url);
+      print('Response body:\n${response.body}');
 
-      if (response.statusCode == 200) {
-        print('Response body:\n${response.body}');
-        final doc = XmlDocument.parse(response.body);
-        final visits = doc.findAllElements('MonitoredStopVisit');
-        if (visits.isEmpty) {
-          _arrivalTimes = ['No upcoming trains'];
-        } else {
-          _arrivalTimes = visits.map((visit) {
-            final journey = visit.findElements('MonitoredVehicleJourney').first;
-            final line = journey.findElements('PublishedLineName').first.text;
-            final dest = journey.findElements('DestinationName').first.text;
-            final timeStr = journey
-                .findElements('MonitoredCall')
-                .first
-                .findElements('ExpectedDepartureTime')
-                .first
-                .text;
-            final time = DateTime.parse(timeStr).toLocal();
-            final formattedTime =
-                '${_formatHour(time.hour)}:${time.minute.toString().padLeft(2, '0')} ${time.hour >= 12 ? 'PM' : 'AM'}';
-            return '$line to $dest – $formattedTime';
-          }).toList();
-        }
+      final doc = XmlDocument.parse(response.body);
+      final visits = doc.findAllElements('MonitoredStopVisit');
+
+      if (visits.isEmpty) {
+        _arrivalTimes = [];
       } else {
-        _arrivalTimes = ['Error: ${response.statusCode}'];
+        _arrivalTimes = visits.map((visit) {
+          final journey = visit.findElements('MonitoredVehicleJourney').first;
+          final line = journey.findElements('PublishedLineName').first.text;
+          final dest = journey.findElements('DestinationName').first.text;
+          final timeStr = journey
+              .findElements('MonitoredCall')
+              .first
+              .findElements('ExpectedDepartureTime')
+              .first
+              .text;
+          final time = DateTime.parse(timeStr).toLocal();
+          final hour = time.hour == 0
+              ? 12
+              : time.hour > 12
+                  ? time.hour - 12
+                  : time.hour;
+          final ampm = time.hour >= 12 ? 'PM' : 'AM';
+          final formattedTime =
+              '$hour:${time.minute.toString().padLeft(2, '0')} $ampm';
+          return '$line to $dest at $formattedTime';
+        }).toList();
       }
     } catch (e) {
       print('ERROR: $e');
-      setState(() {
-        _arrivalTimes = ['Error fetching train data'];
-      });
+      _arrivalTimes = ['Error fetching train data'];
     }
 
     setState(() => _loading = false);
   }
 
+  Widget _buildTrainCard(String content) {
+    return Card(
+      elevation: 3,
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: ListTile(
+        leading: const Icon(Icons.train, color: Colors.red),
+        title: Text(content,
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Caltrain Tracker')),
+      appBar: AppBar(
+        title: const Text('Caltrain Tracker'),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        foregroundColor: Colors.white,
+      ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             DropdownButton<String>(
               value: _selectedStation,
-              onChanged: (String? newValue) {
-                if (newValue != null) {
-                  setState(() => _selectedStation = newValue);
+              onChanged: (newVal) {
+                if (newVal != null) {
+                  setState(() => _selectedStation = newVal);
                   _fetchTrainTimes();
                 }
               },
@@ -123,37 +136,43 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
                   child: Text(station),
                 );
               }).toList(),
+              isExpanded: true,
+              underline: Container(
+                height: 2,
+                color: Theme.of(context).colorScheme.primary,
+              ),
             ),
             const SizedBox(height: 20),
             _loading
-                ? const CircularProgressIndicator()
-                : Expanded(
-                    child: ListView.builder(
-                      itemCount: _arrivalTimes.length,
-                      itemBuilder: (context, index) {
-                        return Card(
-                          margin: const EdgeInsets.symmetric(vertical: 6),
-                          child: Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Text(
-                              _arrivalTimes[index],
-                              style: const TextStyle(fontSize: 16),
-                            ),
-                          ),
-                        );
-                      },
+                ? Center(
+                    child: Column(
+                      children: const [
+                        CircularProgressIndicator(),
+                        SizedBox(height: 8),
+                        Text("Fetching train data..."),
+                      ],
                     ),
-                  ),
+                  )
+                : _arrivalTimes.isEmpty
+                    ? const Center(
+                        child: Padding(
+                          padding: EdgeInsets.all(16.0),
+                          child: Text(
+                            "No upcoming trains at this time.",
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ),
+                      )
+                    : Expanded(
+                        child: ListView.builder(
+                          itemCount: _arrivalTimes.length,
+                          itemBuilder: (context, index) =>
+                              _buildTrainCard(_arrivalTimes[index]),
+                        ),
+                      ),
           ],
         ),
       ),
     );
-  }
-}
-
-extension DateFormatting on int {
-  String get hourOfDay {
-    final h = this % 24;
-    return h == 0 ? '12' : h > 12 ? '${h - 12}' : '$h';
   }
 }
