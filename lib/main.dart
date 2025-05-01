@@ -211,13 +211,18 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
                                 margin: const EdgeInsets.symmetric(vertical: 6),
                                 child: ListTile(
                                   leading: Icon(Icons.train, color: textColor),
-                                  title: Text(
-                                    'Train ${train['train']}',
-                                    style: TextStyle(color: textColor, fontWeight: FontWeight.bold),
-                                  ),
-                                  subtitle: Text(
-                                    '${train['startTime']} → ${train['endTime']}',
-                                    style: TextStyle(color: textColor),
+                                  title: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'Train ${train['train']}',
+                                        style: TextStyle(color: textColor, fontWeight: FontWeight.bold),
+                                      ),
+                                      Text(
+                                        '${train['startTime']} → ${train['endTime']}',
+                                        style: TextStyle(color: textColor),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               );
