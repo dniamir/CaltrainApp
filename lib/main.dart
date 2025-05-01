@@ -104,7 +104,7 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
 
       train['startTime'] = startTimeStr;
       train['endTime'] = endTimeStr;
-      train['isPast'] = !isPast;
+      train['isPast'] = isPast;
       train['isDelayed'] = false;
 
       return true;
@@ -147,21 +147,48 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
             : Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  DropdownButton<String>(
-                    value: stations.contains(selectedStart) ? selectedStart : null,
-                    isExpanded: true,
-                    onChanged: (value) => setState(() => selectedStart = value),
-                    items: stations.toSet().toList().map((station) =>
-                      DropdownMenuItem(value: station, child: Text('From: $station'))
-                    ).toList(),
-                  ),
-                  DropdownButton<String>(
-                    value: stations.contains(selectedEnd) ? selectedEnd : null,
-                    isExpanded: true,
-                    onChanged: (value) => setState(() => selectedEnd = value),
-                    items: stations.toSet().toList().map((station) =>
-                      DropdownMenuItem(value: station, child: Text('To: $station'))
-                    ).toList(),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          children: [
+                            DropdownButton<String>(
+                              value: stations.contains(selectedStart) ? selectedStart : null,
+                              isExpanded: true,
+                              onChanged: (value) => setState(() => selectedStart = value),
+                              items: stations.map((station) =>
+                                DropdownMenuItem(value: station, child: Text('From: $station'))
+                              ).toList(),
+                            ),
+                            DropdownButton<String>(
+                              value: stations.contains(selectedEnd) ? selectedEnd : null,
+                              isExpanded: true,
+                              onChanged: (value) => setState(() => selectedEnd = value),
+                              items: stations.map((station) =>
+                                DropdownMenuItem(value: station, child: Text('To: $station'))
+                              ).toList(),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Column(
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.swap_vert, size: 32),
+                            tooltip: 'Swap From/To',
+                            onPressed: () {
+                              setState(() {
+                                final temp = selectedStart;
+                                selectedStart = selectedEnd;
+                                selectedEnd = temp;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 16),
                   Expanded(
@@ -171,8 +198,8 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
                             itemCount: trains.length,
                             itemBuilder: (context, index) {
                               final train = trains[index];
-                              final isPast = train['isPast'] == 'true';
-                              final isDelayed = train['isDelayed'] == 'true';
+                              final isPast = train['isPast'] == true;
+                              final isDelayed = train['isDelayed'] == true;
 
                               final textColor = isDelayed
                                   ? Colors.red
