@@ -75,6 +75,13 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
       selectedStart = stations.first;
       selectedEnd = stations.last;
     });
+
+    final prefs = await SharedPreferences.getInstance();
+    final from = prefs.getString('default_from');
+    final to = prefs.getString('default_to');
+
+    selectedStart = stations.contains(from) ? from : stations.first;
+    selectedEnd = stations.contains(to) ? to : stations.last;
   }
 
   List<Map<String, dynamic>> getFilteredTrains() {
@@ -96,19 +103,49 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
 
       if (!stopNames.contains(selectedStart) || !stopNames.contains(selectedEnd)) return false;
 
-      final startTimeStr = (stops.firstWhere((s) => s['station'] == selectedStart))['time'];
-      final endTimeStr = (stops.firstWhere((s) => s['station'] == selectedEnd))['time'];
+      final startStop = stops.firstWhere((s) => s['station'] == selectedStart);
+      final endStop = stops.firstWhere((s) => s['station'] == selectedEnd);
+
+      final startIndex = stops.indexOf(startStop);
+      final endIndex = stops.indexOf(endStop);
+
+      if (startIndex >= endIndex) return false; // train doesn't go in desired direction
+
+      final startTimeStr = startStop['time'];
+      final endTimeStr = endStop['time'];
 
       final startTime = _parseTime(startTimeStr);
+
+      final duration = _durationInMinutes(startTimeStr, endTimeStr);
       final isPast = _isTimeBefore(now, startTime);
 
       train['startTime'] = startTimeStr;
       train['endTime'] = endTimeStr;
+      train['duration'] = duration;
       train['isPast'] = isPast;
       train['isDelayed'] = false;
 
+      print(startTimeStr);
+      print(duration);
+      print(endTimeStr);
+      print(" ");
+
       return true;
     }).map<Map<String, dynamic>>((train) => Map<String, dynamic>.from(train)).toList();
+  }
+
+  int _durationInMinutes(String startTimeStr, String endTimeStr) {
+    final start = _parseTime(startTimeStr);
+    final end = _parseTime(endTimeStr);
+
+    print(start);
+    print(end);
+
+    final startDate = DateTime(2024, 1, 1, start.hour, start.minute);
+    final endDate = DateTime(2024, 1, 1, end.hour, end.minute);
+
+    final duration = endDate.difference(startDate).inMinutes;
+    return duration > 0 ? duration : 0;
   }
 
   TimeOfDay _parseTime(String timeStr) {
@@ -218,9 +255,18 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
                                         'Train ${train['train']}',
                                         style: TextStyle(color: textColor, fontWeight: FontWeight.bold),
                                       ),
-                                      Text(
-                                        '${train['startTime']} → ${train['endTime']}',
-                                        style: TextStyle(color: textColor),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            '${train['startTime']} → ${train['endTime']}',
+                                            style: TextStyle(color: textColor),
+                                          ),
+                                          const SizedBox(width: 8),
+                                          Text(
+                                            '${train['duration']} min',
+                                            style: TextStyle(color: textColor, fontStyle: FontStyle.italic),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
