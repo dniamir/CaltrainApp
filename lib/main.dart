@@ -244,190 +244,175 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
     return finalCheck;
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Caltrain Planner'),
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        foregroundColor: Colors.white,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.settings),
-            tooltip: "Settings",
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => SettingsPage(stations: stations),
-                ),
-              );
-            },
-          ),
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: stations.isEmpty
-            ? const Center(child: CircularProgressIndicator())
-            : FutureBuilder<List<Map<String, dynamic>>>(
-                future: getFilteredTrains(),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return const Center(child: CircularProgressIndicator());
-                  }
-
-                  final trains = snapshot.data!;
-                  if (trains.isEmpty) {
-                    return const Center(child: Text("No trains available for this route."));
-                  }
-
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    final now = debug ? _parseTime(debugTimeString) : TimeOfDay.now();
-                    final firstFutureIndex = trains.indexWhere((t) {
-                      final time = _parseTime(t['startTime']);
-                      return _isTimeBefore(now, time);
-                    });
-                    if (firstFutureIndex != -1 && _trainKeys.length > firstFutureIndex) {
-                      final context = _trainKeys[firstFutureIndex].currentContext;
-                      if (context != null) {
-                        Scrollable.ensureVisible(
-                          context,
-                          duration: Duration(milliseconds: 300),
-                          alignment: 0.1,
-                        );
-                      }
-                    }
-                  });
-
-                  // Resize _trainKeys safely
-                  if (_trainKeys.length > trains.length) {
-                    _trainKeys.removeRange(trains.length, _trainKeys.length);
-                  }
-                  while (_trainKeys.length < trains.length) {
-                    _trainKeys.add(GlobalKey());
-                  }
-                  for (int i = 0; i < trains.length; i++) {
-                    _trainKeys[i] = _trainKeys[i] ?? GlobalKey();
-                  }
-
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      title: const Text('Caltrain Planner'),
+      backgroundColor: Theme.of(context).colorScheme.primary,
+      foregroundColor: Colors.white,
+      actions: [
+        IconButton(
+          icon: const Icon(Icons.settings),
+          tooltip: "Settings",
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => SettingsPage(stations: stations),
+              ),
+            );
+          },
+        ),
+      ],
+    ),
+    body: Padding(
+      padding: const EdgeInsets.all(16),
+      child: stations.isEmpty
+          ? const Center(child: CircularProgressIndicator())
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Column(
                         children: [
-                          Expanded(
-                            child: Column(
-                              children: [
-                                DropdownButton<String>(
-                                  value: stations.contains(selectedStart) ? selectedStart : null,
-                                  isExpanded: true,
-                                  onChanged: (value) => setState(() => selectedStart = value),
-                                  items: stations.map((station) =>
-                                    DropdownMenuItem(value: station, child: Text('From: $station'))
-                                  ).toList(),
-                                ),
-                                DropdownButton<String>(
-                                  value: stations.contains(selectedEnd) ? selectedEnd : null,
-                                  isExpanded: true,
-                                  onChanged: (value) => setState(() => selectedEnd = value),
-                                  items: stations.map((station) =>
-                                    DropdownMenuItem(value: station, child: Text('To: $station'))
-                                  ).toList(),
-                                ),
-                              ],
-                            ),
+                          DropdownButton<String>(
+                            value: stations.contains(selectedStart) ? selectedStart : null,
+                            isExpanded: true,
+                            onChanged: (value) => setState(() => selectedStart = value),
+                            items: stations.map((station) =>
+                              DropdownMenuItem(value: station, child: Text('From: $station'))
+                            ).toList(),
                           ),
-                          const SizedBox(width: 8),
-                          Column(
-                            children: [
-                              IconButton(
-                                icon: const Icon(Icons.swap_vert, size: 32),
-                                tooltip: 'Swap From/To',
-                                onPressed: () {
-                                  setState(() {
-                                    final temp = selectedStart;
-                                    selectedStart = selectedEnd;
-                                    selectedEnd = temp;
-                                  });
-                                },
-                              ),
-                            ],
+                          DropdownButton<String>(
+                            value: stations.contains(selectedEnd) ? selectedEnd : null,
+                            isExpanded: true,
+                            onChanged: (value) => setState(() => selectedEnd = value),
+                            items: stations.map((station) =>
+                              DropdownMenuItem(value: station, child: Text('To: $station'))
+                            ).toList(),
                           ),
                         ],
                       ),
-                      const SizedBox(height: 16),
-                      Expanded(
-                        child: ListView.builder(
-                          itemCount: trains.length,
-                          controller: _scrollController,
-                          itemBuilder: (context, index) {
+                    ),
+                    const SizedBox(width: 8),
+                    Column(
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.swap_vert, size: 32),
+                          tooltip: 'Swap From/To',
+                          onPressed: () {
+                            setState(() {
+                              final temp = selectedStart;
+                              selectedStart = selectedEnd;
+                              selectedEnd = temp;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                Expanded(
+                  child: FutureBuilder<List<Map<String, dynamic>>>(
+                    future: getFilteredTrains(),
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
 
-                            final key = _trainKeys[index];
-                            final train = trains[index];
-                            final isPast = train['isPast'] == true;
-                            final isDelayed = train['isDelayed'] == true;
+                      final trains = snapshot.data!;
+                      if (trains.isEmpty) {
+                        return const Center(child: Text("No trains available for this route."));
+                      }
 
-                            final textColor = isDelayed
-                                ? Colors.red
-                                : isPast
-                                    ? Colors.black
-                                    : Colors.grey;
+                      // Resize _trainKeys to match
+                      if (_trainKeys.length > trains.length) {
+                        _trainKeys.removeRange(trains.length, _trainKeys.length);
+                      }
+                      while (_trainKeys.length < trains.length) {
+                        _trainKeys.add(GlobalKey());
+                      }
 
-                            // Parse train start time
-                            final currentTime = TimeOfDay.now();
-                            final trainStart = _parseTime(train['startTime']);
-                            final lastTrainStart = _parseTime(trains.last['startTime']);
-
-                            // Check if train is after or equal to now and before the last train's start time
-                            final isNowBetweenThisAndLast = !_isTimeBefore(currentTime, trainStart) &&
-                                                            _isTimeBefore(currentTime, lastTrainStart);
-
-                            print('$currentTime, $trainStart, $lastTrainStart, $isPast');
-
-                            final backgroundColor = isPast
-                                ? Colors.white
-                                : Colors.grey.shade800;
-
-                            return Card(
-                              color: backgroundColor,
-                              margin: const EdgeInsets.symmetric(vertical: 6),
-                              key: key,
-                              child: ListTile(
-                                leading: Icon(Icons.train, color: textColor),
-                                title: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      'Train ${train['train']}',
-                                      style: TextStyle(color: textColor, fontWeight: FontWeight.bold, fontSize: fontSize),
-                                    ),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          '${train['startTime']} → ${train['endTime']}',
-                                          style: TextStyle(color: textColor, fontSize: fontSize),
-                                        ),
-                                        const SizedBox(width: 8),
-                                        Text(
-                                          '${train['duration']} min',
-                                          style: TextStyle(color: textColor, fontStyle: FontStyle.italic, fontSize: fontSize),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        final now = debug ? _parseTime(debugTimeString) : TimeOfDay.now();
+                        final firstFutureIndex = trains.indexWhere((t) {
+                          final time = _parseTime(t['startTime']);
+                          return _isTimeBefore(now, time);
+                        });
+                        if (firstFutureIndex != -1 && _trainKeys.length > firstFutureIndex) {
+                          final context = _trainKeys[firstFutureIndex].currentContext;
+                          if (context != null) {
+                            Scrollable.ensureVisible(
+                              context,
+                              duration: Duration(milliseconds: 300),
+                              alignment: 0.1,
                             );
                           }
-                        ),
-                      ),
-                    ],
-                  );
-                },
-              ),
-      ),
-    );
-  }
+                        }
+                      });
+
+                      return ListView.builder(
+                        itemCount: trains.length,
+                        controller: _scrollController,
+                        itemBuilder: (context, index) {
+                          final key = _trainKeys[index];
+                          final train = trains[index];
+                          final isPast = train['isPast'] == true;
+                          final isDelayed = train['isDelayed'] == true;
+
+                          final textColor = isDelayed
+                              ? Colors.red
+                              : isPast
+                                  ? Colors.black
+                                  : Colors.grey;
+
+                          final backgroundColor = isPast
+                              ? Colors.white
+                              : Colors.grey.shade800;
+
+                          return Card(
+                            color: backgroundColor,
+                            margin: const EdgeInsets.symmetric(vertical: 6),
+                            key: key,
+                            child: ListTile(
+                              leading: Icon(Icons.train, color: textColor),
+                              title: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Train ${train['train']}',
+                                    style: TextStyle(color: textColor, fontWeight: FontWeight.bold, fontSize: fontSize),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        '${train['startTime']} → ${train['endTime']}',
+                                        style: TextStyle(color: textColor, fontSize: fontSize),
+                                      ),
+                                      const SizedBox(width: 8),
+                                      Text(
+                                        '${train['duration']} min',
+                                        style: TextStyle(color: textColor, fontStyle: FontStyle.italic, fontSize: fontSize),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+    ),
+  );
+}
 }
