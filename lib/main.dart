@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:caltrain_app/settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+
+const String apiKey = '7f3f26c8-c002-4131-9bc0-5794d15893ef';
 
 void main() {
   runApp(const CaltrainApp());
@@ -46,6 +49,39 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
     loadAssets();
   }
 
+  Future<Map<String, String>> fetchLiveDelays() async {
+  final url = Uri.parse('https://api.511.org/transit/vehicle-monitoring?agency=CT&api_key=$apiKey');
+
+  try {
+    final response = await http.get(url);
+
+    if (response.statusCode != 200) {
+      print('Failed to fetch live data: ${response.statusCode}');
+      return {};
+    }
+
+    final data = json.decode(response.body);
+
+    final activities = data['Siri']['ServiceDelivery']['VehicleMonitoringDelivery'][0]['VehicleActivity'];
+    final Map<String, String> delayedTrains = {};
+
+    for (final activity in activities) {
+      final journey = activity['MonitoredVehicleJourney'];
+      final trainId = journey['PublishedLineName'];
+      final expectedDeparture = journey['MonitoredCall']?['ExpectedDepartureTime'];
+
+      if (expectedDeparture != null) {
+        delayedTrains[trainId] = expectedDeparture;
+      }
+    }
+
+    return delayedTrains;
+  } catch (e) {
+    print('Error fetching live delays: $e');
+    return {};
+  }
+}
+
   Future<void> loadAssets() async {
     final northboundJson = await rootBundle.loadString('assets/data/caltrain_northbound_weekday.json');
     final southboundJson = await rootBundle.loadString('assets/data/caltrain_southbound_weekday.json');
@@ -86,7 +122,10 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
     selectedEnd = stations.contains(to) ? to : stations.last;
   }
 
-  List<Map<String, dynamic>> getFilteredTrains() {
+  Future<List<Map<String, dynamic>>> getFilteredTrains() async {
+
+    final delayMap = await fetchLiveDelays(); // trainId → updated time
+
     if (selectedStart == null || selectedEnd == null) return [];
 
     final startIndex = stations.indexOf(selectedStart!);
@@ -121,7 +160,18 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
       final duration = _durationInMinutes(startTimeStr, endTimeStr);
       final isPast = _isTimeBefore(now, startTime);
 
-      train['startTime'] = startTimeStr;
+      final trainId = train['train'].toString();
+      final liveTime = delayMap[trainId];
+
+      if (liveTime != null) {
+        train['startTime'] = liveTime;
+        train['isDelayed'] = true;
+      } else {
+        train['startTime'] = startTimeStr;
+        train['isDelayed'] = false;
+      }
+
+      // train['startTime'] = startTimeStr;
       train['endTime'] = endTimeStr;
       train['duration'] = duration;
       train['isPast'] = isPast;
@@ -171,8 +221,6 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final trains = getFilteredTrains();
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Caltrain Planner'),
@@ -197,101 +245,113 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
         padding: const EdgeInsets.all(16),
         child: stations.isEmpty
             ? const Center(child: CircularProgressIndicator())
-            : Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+            : FutureBuilder<List<Map<String, dynamic>>>(
+                future: getFilteredTrains(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+
+                  final trains = snapshot.data!;
+                  if (trains.isEmpty) {
+                    return const Center(child: Text("No trains available for this route."));
+                  }
+
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        child: Column(
-                          children: [
-                            DropdownButton<String>(
-                              value: stations.contains(selectedStart) ? selectedStart : null,
-                              isExpanded: true,
-                              onChanged: (value) => setState(() => selectedStart = value),
-                              items: stations.map((station) =>
-                                DropdownMenuItem(value: station, child: Text('From: $station'))
-                              ).toList(),
-                            ),
-                            DropdownButton<String>(
-                              value: stations.contains(selectedEnd) ? selectedEnd : null,
-                              isExpanded: true,
-                              onChanged: (value) => setState(() => selectedEnd = value),
-                              items: stations.map((station) =>
-                                DropdownMenuItem(value: station, child: Text('To: $station'))
-                              ).toList(),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Column(
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          IconButton(
-                            icon: const Icon(Icons.swap_vert, size: 32),
-                            tooltip: 'Swap From/To',
-                            onPressed: () {
-                              setState(() {
-                                final temp = selectedStart;
-                                selectedStart = selectedEnd;
-                                selectedEnd = temp;
-                              });
-                            },
+                          Expanded(
+                            child: Column(
+                              children: [
+                                DropdownButton<String>(
+                                  value: stations.contains(selectedStart) ? selectedStart : null,
+                                  isExpanded: true,
+                                  onChanged: (value) => setState(() => selectedStart = value),
+                                  items: stations.map((station) =>
+                                    DropdownMenuItem(value: station, child: Text('From: $station'))
+                                  ).toList(),
+                                ),
+                                DropdownButton<String>(
+                                  value: stations.contains(selectedEnd) ? selectedEnd : null,
+                                  isExpanded: true,
+                                  onChanged: (value) => setState(() => selectedEnd = value),
+                                  items: stations.map((station) =>
+                                    DropdownMenuItem(value: station, child: Text('To: $station'))
+                                  ).toList(),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Column(
+                            children: [
+                              IconButton(
+                                icon: const Icon(Icons.swap_vert, size: 32),
+                                tooltip: 'Swap From/To',
+                                onPressed: () {
+                                  setState(() {
+                                    final temp = selectedStart;
+                                    selectedStart = selectedEnd;
+                                    selectedEnd = temp;
+                                  });
+                                },
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  Expanded(
-                    child: trains.isEmpty
-                        ? const Center(child: Text("No trains available for this route."))
-                        : ListView.builder(
-                            itemCount: trains.length,
-                            itemBuilder: (context, index) {
-                              final train = trains[index];
-                              final isPast = train['isPast'] == true;
-                              final isDelayed = train['isDelayed'] == true;
+                      const SizedBox(height: 16),
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: trains.length,
+                          itemBuilder: (context, index) {
+                            final train = trains[index];
+                            final isPast = train['isPast'] == true;
+                            final isDelayed = train['isDelayed'] == true;
 
-                              final textColor = isDelayed
-                                  ? Colors.red
-                                  : isPast
-                                      ? Colors.grey
-                                      : Colors.black;
+                            final textColor = isDelayed
+                                ? Colors.red
+                                : isPast
+                                    ? Colors.grey
+                                    : Colors.black;
 
-                              return Card(
-                                margin: const EdgeInsets.symmetric(vertical: 6),
-                                child: ListTile(
-                                  leading: Icon(Icons.train, color: textColor),
-                                  title: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        'Train ${train['train']}',
-                                        style: TextStyle(color: textColor, fontWeight: FontWeight.bold),
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            '${train['startTime']} → ${train['endTime']}',
-                                            style: TextStyle(color: textColor),
-                                          ),
-                                          const SizedBox(width: 8),
-                                          Text(
-                                            '${train['duration']} min',
-                                            style: TextStyle(color: textColor, fontStyle: FontStyle.italic),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
+                            return Card(
+                              margin: const EdgeInsets.symmetric(vertical: 6),
+                              child: ListTile(
+                                leading: Icon(Icons.train, color: textColor),
+                                title: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Train ${train['train']}',
+                                      style: TextStyle(color: textColor, fontWeight: FontWeight.bold),
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          '${train['startTime']} → ${train['endTime']}',
+                                          style: TextStyle(color: textColor),
+                                        ),
+                                        const SizedBox(width: 8),
+                                        Text(
+                                          '${train['duration']} min',
+                                          style: TextStyle(color: textColor, fontStyle: FontStyle.italic),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
                                 ),
-                              );
-                            },
-                          ),
-                  ),
-                ],
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  );
+                },
               ),
       ),
     );
