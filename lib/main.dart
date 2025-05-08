@@ -7,6 +7,10 @@ import 'package:http/http.dart' as http;
 
 const String apiKey = '7f3f26c8-c002-4131-9bc0-5794d15893ef';
 
+const bool debug = true;
+const String debugTimeString = "10:30 AM";
+const double fontSize = 15;
+
 void main() {
   runApp(const CaltrainApp());
 }
@@ -136,7 +140,9 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
     final goingSouth = startIndex < endIndex;
     final schedule = goingSouth ? southboundSchedule : northboundSchedule;
 
-    final now = TimeOfDay.now();
+    final now = debug ? _parseTime(debugTimeString) : TimeOfDay.now();
+    // print(now, TimeOfDay.now());
+    print('$now ${TimeOfDay.now()}');
 
     return schedule.where((train) {
       final stops = train['stops'] as List;
@@ -177,10 +183,10 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
       train['isPast'] = isPast;
       train['isDelayed'] = false;
 
-      print(startTimeStr);
-      print(duration);
-      print(endTimeStr);
-      print(" ");
+      // print(startTimeStr);
+      // print(duration);
+      // print(endTimeStr);
+      // print(" ");
 
       return true;
     }).map<Map<String, dynamic>>((train) => Map<String, dynamic>.from(train)).toList();
@@ -190,8 +196,8 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
     final start = _parseTime(startTimeStr);
     final end = _parseTime(endTimeStr);
 
-    print(start);
-    print(end);
+    // print(start);
+    // print(end);
 
     final startDate = DateTime(2024, 1, 1, start.hour, start.minute);
     final endDate = DateTime(2024, 1, 1, end.hour, end.minute);
@@ -201,22 +207,28 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
   }
 
   TimeOfDay _parseTime(String timeStr) {
-    final match = RegExp(r'(\d+):(\d+)(a|p)').firstMatch(timeStr.toLowerCase());
+    final match = RegExp(r'(\d+):(\d+)\s*(a|p)m').firstMatch(timeStr.toLowerCase());
     if (match == null) return const TimeOfDay(hour: 0, minute: 0);
 
     int hour = int.parse(match[1]!);
-    final minute = int.parse(match[2]!);
-    final isPM = match[3] == 'p';
+    int minute = int.parse(match[2]!);
+    bool isPM = match[3]!.toLowerCase() == 'p';
+
+    bool isEarlyMorning = hour <= 3;
 
     if (isPM && hour != 12) hour += 12;
-    if (!isPM && hour == 12) hour = 0;
+    if (!isPM && hour == 12) hour += 12;
+    if (!isPM && isEarlyMorning) hour += 24;
 
     return TimeOfDay(hour: hour, minute: minute);
   }
 
-  bool _isTimeBefore(TimeOfDay now, TimeOfDay trainTime) {
-    return (now.hour < trainTime.hour) ||
-        (now.hour == trainTime.hour && now.minute < trainTime.minute);
+  bool _isTimeBefore(TimeOfDay time1, TimeOfDay time2) {
+    bool hourCheck1 = time1.hour < time2.hour;
+    bool hourCheck2 = time1.hour == time2.hour;
+    bool minuteCheck = time1.minute < time2.minute;
+    bool finalCheck = hourCheck1 || (hourCheck2 && minuteCheck);
+    return finalCheck;
   }
 
   @override
@@ -308,6 +320,7 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
                         child: ListView.builder(
                           itemCount: trains.length,
                           itemBuilder: (context, index) {
+
                             final train = trains[index];
                             final isPast = train['isPast'] == true;
                             final isDelayed = train['isDelayed'] == true;
@@ -315,10 +328,26 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
                             final textColor = isDelayed
                                 ? Colors.red
                                 : isPast
-                                    ? Colors.grey
-                                    : Colors.black;
+                                    ? Colors.black
+                                    : Colors.grey;
+
+                            // Parse train start time
+                            final currentTime = TimeOfDay.now();
+                            final trainStart = _parseTime(train['startTime']);
+                            final lastTrainStart = _parseTime(trains.last['startTime']);
+
+                            // Check if train is after or equal to now and before the last train's start time
+                            final isNowBetweenThisAndLast = !_isTimeBefore(currentTime, trainStart) &&
+                                                            _isTimeBefore(currentTime, lastTrainStart);
+
+                            print('$currentTime, $trainStart, $lastTrainStart, $isPast');
+
+                            final backgroundColor = isPast
+                                ? Colors.white
+                                : Colors.grey.shade800;
 
                             return Card(
+                              color: backgroundColor,
                               margin: const EdgeInsets.symmetric(vertical: 6),
                               child: ListTile(
                                 leading: Icon(Icons.train, color: textColor),
@@ -327,18 +356,18 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
                                   children: [
                                     Text(
                                       'Train ${train['train']}',
-                                      style: TextStyle(color: textColor, fontWeight: FontWeight.bold),
+                                      style: TextStyle(color: textColor, fontWeight: FontWeight.bold, fontSize: fontSize),
                                     ),
                                     Row(
                                       children: [
                                         Text(
                                           '${train['startTime']} → ${train['endTime']}',
-                                          style: TextStyle(color: textColor),
+                                          style: TextStyle(color: textColor, fontSize: fontSize),
                                         ),
                                         const SizedBox(width: 8),
                                         Text(
                                           '${train['duration']} min',
-                                          style: TextStyle(color: textColor, fontStyle: FontStyle.italic),
+                                          style: TextStyle(color: textColor, fontStyle: FontStyle.italic, fontSize: fontSize),
                                         ),
                                       ],
                                     ),
@@ -346,7 +375,7 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
                                 ),
                               ),
                             );
-                          },
+                          }
                         ),
                       ),
                     ],
