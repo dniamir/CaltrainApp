@@ -47,6 +47,10 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
   String? selectedStart; // Can be empty, or can be a string
   String? selectedEnd;
 
+  final List<GlobalKey> _trainKeys = [];
+
+  final ScrollController _scrollController = ScrollController();
+
   @override
   void initState() {
     super.initState();
@@ -143,6 +147,15 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
     final now = debug ? _parseTime(debugTimeString) : TimeOfDay.now();
     // print(now, TimeOfDay.now());
     print('$now ${TimeOfDay.now()}');
+
+    final scrollToIndex = schedule.indexWhere((train) {
+      final stops = train['stops'] as List;
+      final stop = stops.firstWhere((s) => s['station'] == selectedStart, orElse: () => null);
+      if (stop == null) return false;
+
+      final time = _parseTime(stop['time']);
+      return _isTimeBefore(now, time); // future train
+    });
 
     return schedule.where((train) {
       final stops = train['stops'] as List;
@@ -269,6 +282,35 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
                     return const Center(child: Text("No trains available for this route."));
                   }
 
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    final now = debug ? _parseTime(debugTimeString) : TimeOfDay.now();
+                    final firstFutureIndex = trains.indexWhere((t) {
+                      final time = _parseTime(t['startTime']);
+                      return _isTimeBefore(now, time);
+                    });
+                    if (firstFutureIndex != -1 && _trainKeys.length > firstFutureIndex) {
+                      final context = _trainKeys[firstFutureIndex].currentContext;
+                      if (context != null) {
+                        Scrollable.ensureVisible(
+                          context,
+                          duration: Duration(milliseconds: 300),
+                          alignment: 0.1,
+                        );
+                      }
+                    }
+                  });
+
+                  // Resize _trainKeys safely
+                  if (_trainKeys.length > trains.length) {
+                    _trainKeys.removeRange(trains.length, _trainKeys.length);
+                  }
+                  while (_trainKeys.length < trains.length) {
+                    _trainKeys.add(GlobalKey());
+                  }
+                  for (int i = 0; i < trains.length; i++) {
+                    _trainKeys[i] = _trainKeys[i] ?? GlobalKey();
+                  }
+
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -319,8 +361,10 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
                       Expanded(
                         child: ListView.builder(
                           itemCount: trains.length,
+                          controller: _scrollController,
                           itemBuilder: (context, index) {
 
+                            final key = _trainKeys[index];
                             final train = trains[index];
                             final isPast = train['isPast'] == true;
                             final isDelayed = train['isDelayed'] == true;
@@ -349,6 +393,7 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
                             return Card(
                               color: backgroundColor,
                               margin: const EdgeInsets.symmetric(vertical: 6),
+                              key: key,
                               child: ListTile(
                                 leading: Icon(Icons.train, color: textColor),
                                 title: Row(
