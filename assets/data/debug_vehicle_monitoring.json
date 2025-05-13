@@ -1,0 +1,1227 @@
+{
+  "Siri": {
+    "ServiceDelivery": {
+      "ResponseTimestamp": "2025-05-13T05:39:43Z",
+      "ProducerRef": "CT",
+      "Status": true,
+      "VehicleMonitoringDelivery": {
+        "version": "1.4",
+        "ResponseTimestamp": "2025-05-13T05:39:43Z",
+        "VehicleActivity": [
+          {
+            "RecordedAtTime": "2025-05-13T05:39:37Z",
+            "ValidUntilTime": "",
+            "MonitoredVehicleJourney": {
+              "LineRef": "Local Weekday",
+              "DirectionRef": "N",
+              "FramedVehicleJourneyRef": {
+                "DataFrameRef": "2025-05-12",
+                "DatedVehicleJourneyRef": "167"
+              },
+              "PublishedLineName": "",
+              "OperatorRef": "CT",
+              "OriginRef": "70261",
+              "OriginName": "San Jose Diridon Caltrain Station Northbound",
+              "DestinationRef": "70011",
+              "DestinationName": "San Francisco Caltrain Station Northbound",
+              "Monitored": true,
+              "InCongestion": null,
+              "VehicleLocation": {
+                "Longitude": "-122.10759",
+                "Latitude": "37.4076996"
+              },
+              "Bearing": null,
+              "Occupancy": null,
+              "VehicleRef": "167",
+              "MonitoredCall": {
+                "StopPointRef": "70191",
+                "StopPointName": "California Avenue Caltrain Station Northbound",
+                "DestinationDisplay": "San Francisco",
+                "VehicleLocationAtStop": "",
+                "VehicleAtStop": "",
+                "AimedArrivalTime": "2025-05-13T04:52:00Z",
+                "ExpectedArrivalTime": "2025-05-13T05:40:55Z",
+                "AimedDepartureTime": "2025-05-13T04:52:00Z",
+                "ExpectedDepartureTime": "2025-05-13T05:41:55Z"
+              },
+              "OnwardCalls": {
+                "OnwardCall": [
+                  {
+                    "StopPointRef": "70171",
+                    "StopPointName": "Palo Alto Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T04:55:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T05:43:54Z",
+                    "AimedDepartureTime": "2025-05-13T04:55:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T05:44:54Z"
+                  },
+                  {
+                    "StopPointRef": "70161",
+                    "StopPointName": "Menlo Park Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T04:58:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T05:45:49Z",
+                    "AimedDepartureTime": "2025-05-13T04:58:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T05:46:49Z"
+                  },
+                  {
+                    "StopPointRef": "70141",
+                    "StopPointName": "Redwood City Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T05:03:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T05:50:14Z",
+                    "AimedDepartureTime": "2025-05-13T05:03:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T05:51:14Z"
+                  },
+                  {
+                    "StopPointRef": "70131",
+                    "StopPointName": "San Carlos Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T05:07:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T05:53:01Z",
+                    "AimedDepartureTime": "2025-05-13T05:07:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T05:54:01Z"
+                  },
+                  {
+                    "StopPointRef": "70121",
+                    "StopPointName": "Belmont Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T05:09:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T05:55:04Z",
+                    "AimedDepartureTime": "2025-05-13T05:09:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T05:56:04Z"
+                  },
+                  {
+                    "StopPointRef": "70111",
+                    "StopPointName": "Hillsdale Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T05:12:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T05:57:27Z",
+                    "AimedDepartureTime": "2025-05-13T05:12:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T05:58:27Z"
+                  },
+                  {
+                    "StopPointRef": "70101",
+                    "StopPointName": "Hayward Park Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T05:15:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T05:59:03Z",
+                    "AimedDepartureTime": "2025-05-13T05:15:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:00:03Z"
+                  },
+                  {
+                    "StopPointRef": "70091",
+                    "StopPointName": "San Mateo Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T05:17:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:01:04Z",
+                    "AimedDepartureTime": "2025-05-13T05:17:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:02:04Z"
+                  },
+                  {
+                    "StopPointRef": "70081",
+                    "StopPointName": "Burlingame Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T05:20:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:03:07Z",
+                    "AimedDepartureTime": "2025-05-13T05:20:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:04:07Z"
+                  },
+                  {
+                    "StopPointRef": "70061",
+                    "StopPointName": "Millbrae Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T05:24:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:07:36Z",
+                    "AimedDepartureTime": "2025-05-13T05:24:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:08:36Z"
+                  },
+                  {
+                    "StopPointRef": "70051",
+                    "StopPointName": "San Bruno Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T05:27:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:10:34Z",
+                    "AimedDepartureTime": "2025-05-13T05:27:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:11:34Z"
+                  },
+                  {
+                    "StopPointRef": "70041",
+                    "StopPointName": "South San Francisco Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T05:30:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:12:55Z",
+                    "AimedDepartureTime": "2025-05-13T05:30:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:13:55Z"
+                  },
+                  {
+                    "StopPointRef": "70031",
+                    "StopPointName": "Bayshore Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T05:35:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:17:54Z",
+                    "AimedDepartureTime": "2025-05-13T05:35:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:18:54Z"
+                  },
+                  {
+                    "StopPointRef": "70021",
+                    "StopPointName": "22nd Street Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T05:40:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:21:35Z",
+                    "AimedDepartureTime": "2025-05-13T05:40:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:22:35Z"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "RecordedAtTime": "2025-05-13T05:39:37Z",
+            "ValidUntilTime": "",
+            "MonitoredVehicleJourney": {
+              "LineRef": "Local Weekday",
+              "DirectionRef": "S",
+              "FramedVehicleJourneyRef": {
+                "DataFrameRef": "2025-05-12",
+                "DatedVehicleJourneyRef": "168"
+              },
+              "PublishedLineName": "",
+              "OperatorRef": "CT",
+              "OriginRef": "70012",
+              "OriginName": "San Francisco Caltrain Station Southbound",
+              "DestinationRef": "70272",
+              "DestinationName": "Tamien Caltrain Station Southbound",
+              "Monitored": true,
+              "InCongestion": null,
+              "VehicleLocation": {
+                "Longitude": "-122.243202",
+                "Latitude": "37.4931984"
+              },
+              "Bearing": null,
+              "Occupancy": null,
+              "VehicleRef": "168",
+              "MonitoredCall": {
+                "StopPointRef": "70142",
+                "StopPointName": "Redwood City Caltrain Station Southbound",
+                "DestinationDisplay": "Tamien",
+                "VehicleLocationAtStop": "",
+                "VehicleAtStop": "",
+                "AimedArrivalTime": "2025-05-13T05:37:00Z",
+                "ExpectedArrivalTime": "2025-05-13T05:38:49Z",
+                "AimedDepartureTime": "2025-05-13T05:37:00Z",
+                "ExpectedDepartureTime": "2025-05-13T05:39:49Z"
+              },
+              "OnwardCalls": {
+                "OnwardCall": [
+                  {
+                    "StopPointRef": "70162",
+                    "StopPointName": "Menlo Park Caltrain Station Southbound",
+                    "DestinationDisplay": "Tamien",
+                    "AimedArrivalTime": "2025-05-13T05:41:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T05:43:09Z",
+                    "AimedDepartureTime": "2025-05-13T05:41:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T05:44:09Z"
+                  },
+                  {
+                    "StopPointRef": "70172",
+                    "StopPointName": "Palo Alto Caltrain Station Southbound",
+                    "DestinationDisplay": "Tamien",
+                    "AimedArrivalTime": "2025-05-13T05:44:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T05:45:14Z",
+                    "AimedDepartureTime": "2025-05-13T05:44:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T05:46:14Z"
+                  },
+                  {
+                    "StopPointRef": "70192",
+                    "StopPointName": "California Avenue Caltrain Station Southbound",
+                    "DestinationDisplay": "Tamien",
+                    "AimedArrivalTime": "2025-05-13T05:47:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T05:48:09Z",
+                    "AimedDepartureTime": "2025-05-13T05:47:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T05:49:09Z"
+                  },
+                  {
+                    "StopPointRef": "70202",
+                    "StopPointName": "San Antonio Caltrain Station Southbound",
+                    "DestinationDisplay": "Tamien",
+                    "AimedArrivalTime": "2025-05-13T05:51:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T05:51:09Z",
+                    "AimedDepartureTime": "2025-05-13T05:51:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T05:52:09Z"
+                  },
+                  {
+                    "StopPointRef": "70212",
+                    "StopPointName": "Mountain View Caltrain Station Southbound",
+                    "DestinationDisplay": "Tamien",
+                    "AimedArrivalTime": "2025-05-13T05:54:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T05:53:43Z",
+                    "AimedDepartureTime": "2025-05-13T05:54:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T05:54:43Z"
+                  },
+                  {
+                    "StopPointRef": "70222",
+                    "StopPointName": "Sunnyvale Caltrain Station Southbound",
+                    "DestinationDisplay": "Tamien",
+                    "AimedArrivalTime": "2025-05-13T05:58:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T05:57:12Z",
+                    "AimedDepartureTime": "2025-05-13T05:58:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T05:58:12Z"
+                  },
+                  {
+                    "StopPointRef": "70232",
+                    "StopPointName": "Lawrence Caltrain Station Southbound",
+                    "DestinationDisplay": "Tamien",
+                    "AimedArrivalTime": "2025-05-13T06:01:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:00:30Z",
+                    "AimedDepartureTime": "2025-05-13T06:01:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:01:30Z"
+                  },
+                  {
+                    "StopPointRef": "70242",
+                    "StopPointName": "Santa Clara Caltrain Station Southbound",
+                    "DestinationDisplay": "Tamien",
+                    "AimedArrivalTime": "2025-05-13T06:06:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:05:18Z",
+                    "AimedDepartureTime": "2025-05-13T06:06:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:06:18Z"
+                  },
+                  {
+                    "StopPointRef": "70262",
+                    "StopPointName": "San Jose Diridon Caltrain Station Southbound",
+                    "DestinationDisplay": "Tamien",
+                    "AimedArrivalTime": "2025-05-13T06:13:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:12:48Z",
+                    "AimedDepartureTime": "2025-05-13T06:13:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:13:48Z"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "RecordedAtTime": "2025-05-13T05:39:37Z",
+            "ValidUntilTime": "",
+            "MonitoredVehicleJourney": {
+              "LineRef": "Local Weekday",
+              "DirectionRef": "N",
+              "FramedVehicleJourneyRef": {
+                "DataFrameRef": "2025-05-12",
+                "DatedVehicleJourneyRef": "169"
+              },
+              "PublishedLineName": "",
+              "OperatorRef": "CT",
+              "OriginRef": "70271",
+              "OriginName": "Tamien Caltrain Station Northbound",
+              "DestinationRef": "70011",
+              "DestinationName": "San Francisco Caltrain Station Northbound",
+              "Monitored": true,
+              "InCongestion": null,
+              "VehicleLocation": {
+                "Longitude": "-122.164589",
+                "Latitude": "37.4434013"
+              },
+              "Bearing": null,
+              "Occupancy": null,
+              "VehicleRef": "169",
+              "MonitoredCall": {
+                "StopPointRef": "70161",
+                "StopPointName": "Menlo Park Caltrain Station Northbound",
+                "DestinationDisplay": "San Francisco",
+                "VehicleLocationAtStop": "",
+                "VehicleAtStop": "",
+                "AimedArrivalTime": "2025-05-13T05:28:00Z",
+                "ExpectedArrivalTime": "2025-05-13T05:40:05Z",
+                "AimedDepartureTime": "2025-05-13T05:28:00Z",
+                "ExpectedDepartureTime": "2025-05-13T05:41:05Z"
+              },
+              "OnwardCalls": {
+                "OnwardCall": [
+                  {
+                    "StopPointRef": "70141",
+                    "StopPointName": "Redwood City Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T05:33:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T05:44:30Z",
+                    "AimedDepartureTime": "2025-05-13T05:33:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T05:45:30Z"
+                  },
+                  {
+                    "StopPointRef": "70131",
+                    "StopPointName": "San Carlos Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T05:37:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T05:47:17Z",
+                    "AimedDepartureTime": "2025-05-13T05:37:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T05:48:17Z"
+                  },
+                  {
+                    "StopPointRef": "70121",
+                    "StopPointName": "Belmont Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T05:39:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T05:49:20Z",
+                    "AimedDepartureTime": "2025-05-13T05:39:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T05:50:20Z"
+                  },
+                  {
+                    "StopPointRef": "70111",
+                    "StopPointName": "Hillsdale Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T05:42:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T05:51:43Z",
+                    "AimedDepartureTime": "2025-05-13T05:42:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T05:52:43Z"
+                  },
+                  {
+                    "StopPointRef": "70101",
+                    "StopPointName": "Hayward Park Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T05:45:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T05:53:19Z",
+                    "AimedDepartureTime": "2025-05-13T05:45:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T05:54:19Z"
+                  },
+                  {
+                    "StopPointRef": "70091",
+                    "StopPointName": "San Mateo Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T05:47:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T05:55:20Z",
+                    "AimedDepartureTime": "2025-05-13T05:47:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T05:56:20Z"
+                  },
+                  {
+                    "StopPointRef": "70081",
+                    "StopPointName": "Burlingame Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T05:50:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T05:57:23Z",
+                    "AimedDepartureTime": "2025-05-13T05:50:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T05:58:23Z"
+                  },
+                  {
+                    "StopPointRef": "70061",
+                    "StopPointName": "Millbrae Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T05:54:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:01:53Z",
+                    "AimedDepartureTime": "2025-05-13T05:54:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:02:53Z"
+                  },
+                  {
+                    "StopPointRef": "70051",
+                    "StopPointName": "San Bruno Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T05:57:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:04:50Z",
+                    "AimedDepartureTime": "2025-05-13T05:57:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:05:50Z"
+                  },
+                  {
+                    "StopPointRef": "70041",
+                    "StopPointName": "South San Francisco Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T06:00:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:07:11Z",
+                    "AimedDepartureTime": "2025-05-13T06:00:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:08:11Z"
+                  },
+                  {
+                    "StopPointRef": "70031",
+                    "StopPointName": "Bayshore Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T06:05:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:12:10Z",
+                    "AimedDepartureTime": "2025-05-13T06:05:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:13:10Z"
+                  },
+                  {
+                    "StopPointRef": "70021",
+                    "StopPointName": "22nd Street Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T06:10:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:15:51Z",
+                    "AimedDepartureTime": "2025-05-13T06:10:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:16:51Z"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "RecordedAtTime": "2025-05-13T05:39:37Z",
+            "ValidUntilTime": "",
+            "MonitoredVehicleJourney": {
+              "LineRef": "Local Weekday",
+              "DirectionRef": "S",
+              "FramedVehicleJourneyRef": {
+                "DataFrameRef": "2025-05-12",
+                "DatedVehicleJourneyRef": "170"
+              },
+              "PublishedLineName": "",
+              "OperatorRef": "CT",
+              "OriginRef": "70012",
+              "OriginName": "San Francisco Caltrain Station Southbound",
+              "DestinationRef": "70262",
+              "DestinationName": "San Jose Diridon Caltrain Station Southbound",
+              "Monitored": true,
+              "InCongestion": null,
+              "VehicleLocation": {
+                "Longitude": "-122.390289",
+                "Latitude": "37.6716995"
+              },
+              "Bearing": null,
+              "Occupancy": null,
+              "VehicleRef": "170",
+              "MonitoredCall": {
+                "StopPointRef": "70042",
+                "StopPointName": "South San Francisco Caltrain Station Southbound",
+                "DestinationDisplay": "San Jose Diridon",
+                "VehicleLocationAtStop": "",
+                "VehicleAtStop": "",
+                "AimedArrivalTime": "2025-05-13T05:40:00Z",
+                "ExpectedArrivalTime": "2025-05-13T05:40:17Z",
+                "AimedDepartureTime": "2025-05-13T05:40:00Z",
+                "ExpectedDepartureTime": "2025-05-13T05:41:17Z"
+              },
+              "OnwardCalls": {
+                "OnwardCall": [
+                  {
+                    "StopPointRef": "70052",
+                    "StopPointName": "San Bruno Caltrain Station Southbound",
+                    "DestinationDisplay": "San Jose Diridon",
+                    "AimedArrivalTime": "2025-05-13T05:43:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T05:42:36Z",
+                    "AimedDepartureTime": "2025-05-13T05:43:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T05:43:36Z"
+                  },
+                  {
+                    "StopPointRef": "70062",
+                    "StopPointName": "Millbrae Caltrain Station Southbound",
+                    "DestinationDisplay": "San Jose Diridon",
+                    "AimedArrivalTime": "2025-05-13T05:46:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T05:45:42Z",
+                    "AimedDepartureTime": "2025-05-13T05:46:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T05:46:42Z"
+                  },
+                  {
+                    "StopPointRef": "70082",
+                    "StopPointName": "Burlingame Caltrain Station Southbound",
+                    "DestinationDisplay": "San Jose Diridon",
+                    "AimedArrivalTime": "2025-05-13T05:50:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T05:49:42Z",
+                    "AimedDepartureTime": "2025-05-13T05:50:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T05:50:42Z"
+                  },
+                  {
+                    "StopPointRef": "70092",
+                    "StopPointName": "San Mateo Caltrain Station Southbound",
+                    "DestinationDisplay": "San Jose Diridon",
+                    "AimedArrivalTime": "2025-05-13T05:53:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T05:52:00Z",
+                    "AimedDepartureTime": "2025-05-13T05:53:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T05:53:00Z"
+                  },
+                  {
+                    "StopPointRef": "70102",
+                    "StopPointName": "Hayward Park Caltrain Station Southbound",
+                    "DestinationDisplay": "San Jose Diridon",
+                    "AimedArrivalTime": "2025-05-13T05:55:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T05:54:30Z",
+                    "AimedDepartureTime": "2025-05-13T05:55:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T05:55:30Z"
+                  },
+                  {
+                    "StopPointRef": "70112",
+                    "StopPointName": "Hillsdale Caltrain Station Southbound",
+                    "DestinationDisplay": "San Jose Diridon",
+                    "AimedArrivalTime": "2025-05-13T05:57:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T05:56:54Z",
+                    "AimedDepartureTime": "2025-05-13T05:57:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T05:57:54Z"
+                  },
+                  {
+                    "StopPointRef": "70122",
+                    "StopPointName": "Belmont Caltrain Station Southbound",
+                    "DestinationDisplay": "San Jose Diridon",
+                    "AimedArrivalTime": "2025-05-13T06:01:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:00:00Z",
+                    "AimedDepartureTime": "2025-05-13T06:01:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:01:00Z"
+                  },
+                  {
+                    "StopPointRef": "70132",
+                    "StopPointName": "San Carlos Caltrain Station Southbound",
+                    "DestinationDisplay": "San Jose Diridon",
+                    "AimedArrivalTime": "2025-05-13T06:03:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:02:30Z",
+                    "AimedDepartureTime": "2025-05-13T06:03:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:03:30Z"
+                  },
+                  {
+                    "StopPointRef": "70142",
+                    "StopPointName": "Redwood City Caltrain Station Southbound",
+                    "DestinationDisplay": "San Jose Diridon",
+                    "AimedArrivalTime": "2025-05-13T06:07:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:06:00Z",
+                    "AimedDepartureTime": "2025-05-13T06:07:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:07:00Z"
+                  },
+                  {
+                    "StopPointRef": "70162",
+                    "StopPointName": "Menlo Park Caltrain Station Southbound",
+                    "DestinationDisplay": "San Jose Diridon",
+                    "AimedArrivalTime": "2025-05-13T06:11:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:10:12Z",
+                    "AimedDepartureTime": "2025-05-13T06:11:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:11:12Z"
+                  },
+                  {
+                    "StopPointRef": "70172",
+                    "StopPointName": "Palo Alto Caltrain Station Southbound",
+                    "DestinationDisplay": "San Jose Diridon",
+                    "AimedArrivalTime": "2025-05-13T06:14:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:13:54Z",
+                    "AimedDepartureTime": "2025-05-13T06:14:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:14:54Z"
+                  },
+                  {
+                    "StopPointRef": "70192",
+                    "StopPointName": "California Avenue Caltrain Station Southbound",
+                    "DestinationDisplay": "San Jose Diridon",
+                    "AimedArrivalTime": "2025-05-13T06:17:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:16:36Z",
+                    "AimedDepartureTime": "2025-05-13T06:17:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:17:36Z"
+                  },
+                  {
+                    "StopPointRef": "70202",
+                    "StopPointName": "San Antonio Caltrain Station Southbound",
+                    "DestinationDisplay": "San Jose Diridon",
+                    "AimedArrivalTime": "2025-05-13T06:21:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:20:06Z",
+                    "AimedDepartureTime": "2025-05-13T06:21:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:21:06Z"
+                  },
+                  {
+                    "StopPointRef": "70212",
+                    "StopPointName": "Mountain View Caltrain Station Southbound",
+                    "DestinationDisplay": "San Jose Diridon",
+                    "AimedArrivalTime": "2025-05-13T06:24:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:23:18Z",
+                    "AimedDepartureTime": "2025-05-13T06:24:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:24:18Z"
+                  },
+                  {
+                    "StopPointRef": "70222",
+                    "StopPointName": "Sunnyvale Caltrain Station Southbound",
+                    "DestinationDisplay": "San Jose Diridon",
+                    "AimedArrivalTime": "2025-05-13T06:28:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:27:12Z",
+                    "AimedDepartureTime": "2025-05-13T06:28:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:28:12Z"
+                  },
+                  {
+                    "StopPointRef": "70232",
+                    "StopPointName": "Lawrence Caltrain Station Southbound",
+                    "DestinationDisplay": "San Jose Diridon",
+                    "AimedArrivalTime": "2025-05-13T06:31:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:30:30Z",
+                    "AimedDepartureTime": "2025-05-13T06:31:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:31:30Z"
+                  },
+                  {
+                    "StopPointRef": "70242",
+                    "StopPointName": "Santa Clara Caltrain Station Southbound",
+                    "DestinationDisplay": "San Jose Diridon",
+                    "AimedArrivalTime": "2025-05-13T06:36:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:35:18Z",
+                    "AimedDepartureTime": "2025-05-13T06:36:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:36:18Z"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "RecordedAtTime": "2025-05-13T05:39:37Z",
+            "ValidUntilTime": "",
+            "MonitoredVehicleJourney": {
+              "LineRef": "Local Weekday",
+              "DirectionRef": "N",
+              "FramedVehicleJourneyRef": {
+                "DataFrameRef": "2025-05-12",
+                "DatedVehicleJourneyRef": "171"
+              },
+              "PublishedLineName": "",
+              "OperatorRef": "CT",
+              "OriginRef": "70261",
+              "OriginName": "San Jose Diridon Caltrain Station Northbound",
+              "DestinationRef": "70011",
+              "DestinationName": "San Francisco Caltrain Station Northbound",
+              "Monitored": true,
+              "InCongestion": null,
+              "VehicleLocation": {
+                "Longitude": "-121.947929",
+                "Latitude": "37.3585014"
+              },
+              "Bearing": null,
+              "Occupancy": null,
+              "VehicleRef": "171",
+              "MonitoredCall": {
+                "StopPointRef": "70231",
+                "StopPointName": "Lawrence Caltrain Station Northbound",
+                "DestinationDisplay": "San Francisco",
+                "VehicleLocationAtStop": "",
+                "VehicleAtStop": "",
+                "AimedArrivalTime": "2025-05-13T05:41:00Z",
+                "ExpectedArrivalTime": "2025-05-13T05:40:55Z",
+                "AimedDepartureTime": "2025-05-13T05:41:00Z",
+                "ExpectedDepartureTime": "2025-05-13T05:41:55Z"
+              },
+              "OnwardCalls": {
+                "OnwardCall": [
+                  {
+                    "StopPointRef": "70221",
+                    "StopPointName": "Sunnyvale Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T05:44:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T05:43:36Z",
+                    "AimedDepartureTime": "2025-05-13T05:44:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T05:44:36Z"
+                  },
+                  {
+                    "StopPointRef": "70211",
+                    "StopPointName": "Mountain View Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T05:48:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T05:47:24Z",
+                    "AimedDepartureTime": "2025-05-13T05:48:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T05:48:24Z"
+                  },
+                  {
+                    "StopPointRef": "70201",
+                    "StopPointName": "San Antonio Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T05:51:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T05:50:30Z",
+                    "AimedDepartureTime": "2025-05-13T05:51:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T05:51:30Z"
+                  },
+                  {
+                    "StopPointRef": "70191",
+                    "StopPointName": "California Avenue Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T05:54:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T05:53:54Z",
+                    "AimedDepartureTime": "2025-05-13T05:54:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T05:54:54Z"
+                  },
+                  {
+                    "StopPointRef": "70171",
+                    "StopPointName": "Palo Alto Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T05:57:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T05:56:54Z",
+                    "AimedDepartureTime": "2025-05-13T05:57:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T05:57:54Z"
+                  },
+                  {
+                    "StopPointRef": "70161",
+                    "StopPointName": "Menlo Park Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T06:00:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T05:59:24Z",
+                    "AimedDepartureTime": "2025-05-13T06:00:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:00:24Z"
+                  },
+                  {
+                    "StopPointRef": "70141",
+                    "StopPointName": "Redwood City Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T06:05:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:04:48Z",
+                    "AimedDepartureTime": "2025-05-13T06:05:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:05:48Z"
+                  },
+                  {
+                    "StopPointRef": "70131",
+                    "StopPointName": "San Carlos Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T06:09:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:08:06Z",
+                    "AimedDepartureTime": "2025-05-13T06:09:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:09:06Z"
+                  },
+                  {
+                    "StopPointRef": "70121",
+                    "StopPointName": "Belmont Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T06:11:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:10:36Z",
+                    "AimedDepartureTime": "2025-05-13T06:11:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:11:36Z"
+                  },
+                  {
+                    "StopPointRef": "70111",
+                    "StopPointName": "Hillsdale Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T06:14:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:13:48Z",
+                    "AimedDepartureTime": "2025-05-13T06:14:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:14:48Z"
+                  },
+                  {
+                    "StopPointRef": "70101",
+                    "StopPointName": "Hayward Park Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T06:17:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:16:00Z",
+                    "AimedDepartureTime": "2025-05-13T06:17:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:17:00Z"
+                  },
+                  {
+                    "StopPointRef": "70091",
+                    "StopPointName": "San Mateo Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T06:19:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:18:36Z",
+                    "AimedDepartureTime": "2025-05-13T06:19:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:19:36Z"
+                  },
+                  {
+                    "StopPointRef": "70081",
+                    "StopPointName": "Burlingame Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T06:22:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:21:12Z",
+                    "AimedDepartureTime": "2025-05-13T06:22:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:22:12Z"
+                  },
+                  {
+                    "StopPointRef": "70061",
+                    "StopPointName": "Millbrae Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T06:26:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:25:00Z",
+                    "AimedDepartureTime": "2025-05-13T06:26:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:26:00Z"
+                  },
+                  {
+                    "StopPointRef": "70051",
+                    "StopPointName": "San Bruno Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T06:29:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:28:36Z",
+                    "AimedDepartureTime": "2025-05-13T06:29:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:29:36Z"
+                  },
+                  {
+                    "StopPointRef": "70041",
+                    "StopPointName": "South San Francisco Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T06:32:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:31:30Z",
+                    "AimedDepartureTime": "2025-05-13T06:32:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:32:30Z"
+                  },
+                  {
+                    "StopPointRef": "70031",
+                    "StopPointName": "Bayshore Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T06:37:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:36:42Z",
+                    "AimedDepartureTime": "2025-05-13T06:37:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:37:42Z"
+                  },
+                  {
+                    "StopPointRef": "70021",
+                    "StopPointName": "22nd Street Caltrain Station Northbound",
+                    "DestinationDisplay": "San Francisco",
+                    "AimedArrivalTime": "2025-05-13T06:42:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:41:06Z",
+                    "AimedDepartureTime": "2025-05-13T06:42:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:42:06Z"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "RecordedAtTime": "2025-05-13T05:39:37Z",
+            "ValidUntilTime": "",
+            "MonitoredVehicleJourney": {
+              "LineRef": "Local Weekday",
+              "DirectionRef": "S",
+              "FramedVehicleJourneyRef": {
+                "DataFrameRef": "2025-05-12",
+                "DatedVehicleJourneyRef": "172"
+              },
+              "PublishedLineName": "",
+              "OperatorRef": "CT",
+              "OriginRef": "70012",
+              "OriginName": "San Francisco Caltrain Station Southbound",
+              "DestinationRef": "70272",
+              "DestinationName": "Tamien Caltrain Station Southbound",
+              "Monitored": true,
+              "InCongestion": null,
+              "VehicleLocation": {
+                "Longitude": "-122.395592",
+                "Latitude": "37.7759018"
+              },
+              "Bearing": null,
+              "Occupancy": null,
+              "VehicleRef": "172",
+              "MonitoredCall": {
+                "StopPointRef": "70012",
+                "StopPointName": "San Francisco Caltrain Station Southbound",
+                "DestinationDisplay": "Tamien",
+                "VehicleLocationAtStop": "",
+                "VehicleAtStop": "",
+                "AimedArrivalTime": "2025-05-13T05:55:00Z",
+                "ExpectedArrivalTime": "2025-05-13T05:54:00Z",
+                "AimedDepartureTime": "2025-05-13T05:55:00Z",
+                "ExpectedDepartureTime": "2025-05-13T05:55:00Z"
+              },
+              "OnwardCalls": {
+                "OnwardCall": [
+                  {
+                    "StopPointRef": "70022",
+                    "StopPointName": "22nd Street Caltrain Station Southbound",
+                    "DestinationDisplay": "Tamien",
+                    "AimedArrivalTime": "2025-05-13T06:00:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T05:59:30Z",
+                    "AimedDepartureTime": "2025-05-13T06:00:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:00:30Z"
+                  },
+                  {
+                    "StopPointRef": "70032",
+                    "StopPointName": "Bayshore Caltrain Station Southbound",
+                    "DestinationDisplay": "Tamien",
+                    "AimedArrivalTime": "2025-05-13T06:04:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:03:54Z",
+                    "AimedDepartureTime": "2025-05-13T06:04:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:04:54Z"
+                  },
+                  {
+                    "StopPointRef": "70042",
+                    "StopPointName": "South San Francisco Caltrain Station Southbound",
+                    "DestinationDisplay": "Tamien",
+                    "AimedArrivalTime": "2025-05-13T06:10:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:09:00Z",
+                    "AimedDepartureTime": "2025-05-13T06:10:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:10:00Z"
+                  },
+                  {
+                    "StopPointRef": "70052",
+                    "StopPointName": "San Bruno Caltrain Station Southbound",
+                    "DestinationDisplay": "Tamien",
+                    "AimedArrivalTime": "2025-05-13T06:13:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:12:00Z",
+                    "AimedDepartureTime": "2025-05-13T06:13:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:13:00Z"
+                  },
+                  {
+                    "StopPointRef": "70062",
+                    "StopPointName": "Millbrae Caltrain Station Southbound",
+                    "DestinationDisplay": "Tamien",
+                    "AimedArrivalTime": "2025-05-13T06:16:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:15:42Z",
+                    "AimedDepartureTime": "2025-05-13T06:16:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:16:42Z"
+                  },
+                  {
+                    "StopPointRef": "70082",
+                    "StopPointName": "Burlingame Caltrain Station Southbound",
+                    "DestinationDisplay": "Tamien",
+                    "AimedArrivalTime": "2025-05-13T06:20:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:19:24Z",
+                    "AimedDepartureTime": "2025-05-13T06:20:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:20:24Z"
+                  },
+                  {
+                    "StopPointRef": "70092",
+                    "StopPointName": "San Mateo Caltrain Station Southbound",
+                    "DestinationDisplay": "Tamien",
+                    "AimedArrivalTime": "2025-05-13T06:23:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:22:00Z",
+                    "AimedDepartureTime": "2025-05-13T06:23:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:23:00Z"
+                  },
+                  {
+                    "StopPointRef": "70102",
+                    "StopPointName": "Hayward Park Caltrain Station Southbound",
+                    "DestinationDisplay": "Tamien",
+                    "AimedArrivalTime": "2025-05-13T06:25:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:24:30Z",
+                    "AimedDepartureTime": "2025-05-13T06:25:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:25:30Z"
+                  },
+                  {
+                    "StopPointRef": "70112",
+                    "StopPointName": "Hillsdale Caltrain Station Southbound",
+                    "DestinationDisplay": "Tamien",
+                    "AimedArrivalTime": "2025-05-13T06:27:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:26:54Z",
+                    "AimedDepartureTime": "2025-05-13T06:27:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:27:54Z"
+                  },
+                  {
+                    "StopPointRef": "70122",
+                    "StopPointName": "Belmont Caltrain Station Southbound",
+                    "DestinationDisplay": "Tamien",
+                    "AimedArrivalTime": "2025-05-13T06:31:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:30:00Z",
+                    "AimedDepartureTime": "2025-05-13T06:31:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:31:00Z"
+                  },
+                  {
+                    "StopPointRef": "70132",
+                    "StopPointName": "San Carlos Caltrain Station Southbound",
+                    "DestinationDisplay": "Tamien",
+                    "AimedArrivalTime": "2025-05-13T06:33:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:32:30Z",
+                    "AimedDepartureTime": "2025-05-13T06:33:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:33:30Z"
+                  },
+                  {
+                    "StopPointRef": "70142",
+                    "StopPointName": "Redwood City Caltrain Station Southbound",
+                    "DestinationDisplay": "Tamien",
+                    "AimedArrivalTime": "2025-05-13T06:37:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:36:00Z",
+                    "AimedDepartureTime": "2025-05-13T06:37:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:37:00Z"
+                  },
+                  {
+                    "StopPointRef": "70162",
+                    "StopPointName": "Menlo Park Caltrain Station Southbound",
+                    "DestinationDisplay": "Tamien",
+                    "AimedArrivalTime": "2025-05-13T06:41:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:40:12Z",
+                    "AimedDepartureTime": "2025-05-13T06:41:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:41:12Z"
+                  },
+                  {
+                    "StopPointRef": "70172",
+                    "StopPointName": "Palo Alto Caltrain Station Southbound",
+                    "DestinationDisplay": "Tamien",
+                    "AimedArrivalTime": "2025-05-13T06:44:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:43:54Z",
+                    "AimedDepartureTime": "2025-05-13T06:44:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:44:54Z"
+                  },
+                  {
+                    "StopPointRef": "70192",
+                    "StopPointName": "California Avenue Caltrain Station Southbound",
+                    "DestinationDisplay": "Tamien",
+                    "AimedArrivalTime": "2025-05-13T06:47:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:46:36Z",
+                    "AimedDepartureTime": "2025-05-13T06:47:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:47:36Z"
+                  },
+                  {
+                    "StopPointRef": "70202",
+                    "StopPointName": "San Antonio Caltrain Station Southbound",
+                    "DestinationDisplay": "Tamien",
+                    "AimedArrivalTime": "2025-05-13T06:51:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:50:06Z",
+                    "AimedDepartureTime": "2025-05-13T06:51:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:51:06Z"
+                  },
+                  {
+                    "StopPointRef": "70212",
+                    "StopPointName": "Mountain View Caltrain Station Southbound",
+                    "DestinationDisplay": "Tamien",
+                    "AimedArrivalTime": "2025-05-13T06:54:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:53:18Z",
+                    "AimedDepartureTime": "2025-05-13T06:54:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:54:18Z"
+                  },
+                  {
+                    "StopPointRef": "70222",
+                    "StopPointName": "Sunnyvale Caltrain Station Southbound",
+                    "DestinationDisplay": "Tamien",
+                    "AimedArrivalTime": "2025-05-13T06:58:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:57:12Z",
+                    "AimedDepartureTime": "2025-05-13T06:58:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:58:12Z"
+                  },
+                  {
+                    "StopPointRef": "70232",
+                    "StopPointName": "Lawrence Caltrain Station Southbound",
+                    "DestinationDisplay": "Tamien",
+                    "AimedArrivalTime": "2025-05-13T07:01:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T07:00:30Z",
+                    "AimedDepartureTime": "2025-05-13T07:01:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T07:01:30Z"
+                  },
+                  {
+                    "StopPointRef": "70242",
+                    "StopPointName": "Santa Clara Caltrain Station Southbound",
+                    "DestinationDisplay": "Tamien",
+                    "AimedArrivalTime": "2025-05-13T07:06:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T07:05:18Z",
+                    "AimedDepartureTime": "2025-05-13T07:06:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T07:06:18Z"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "RecordedAtTime": "2025-05-13T05:39:37Z",
+            "ValidUntilTime": "",
+            "MonitoredVehicleJourney": {
+              "LineRef": "Local Weekday",
+              "DirectionRef": "S",
+              "FramedVehicleJourneyRef": {
+                "DataFrameRef": "2025-05-12",
+                "DatedVehicleJourneyRef": "174"
+              },
+              "PublishedLineName": "",
+              "OperatorRef": "CT",
+              "OriginRef": "70012",
+              "OriginName": "San Francisco Caltrain Station Southbound",
+              "DestinationRef": "70262",
+              "DestinationName": "San Jose Diridon Caltrain Station Southbound",
+              "Monitored": true,
+              "InCongestion": null,
+              "VehicleLocation": {
+                "Longitude": "-122.395401",
+                "Latitude": "37.7756996"
+              },
+              "Bearing": null,
+              "Occupancy": null,
+              "VehicleRef": "174",
+              "MonitoredCall": {
+                "StopPointRef": "70012",
+                "StopPointName": "San Francisco Caltrain Station Southbound",
+                "DestinationDisplay": "San Jose Diridon",
+                "VehicleLocationAtStop": "",
+                "VehicleAtStop": "",
+                "AimedArrivalTime": "2025-05-13T06:25:00Z",
+                "ExpectedArrivalTime": "2025-05-13T06:24:00Z",
+                "AimedDepartureTime": "2025-05-13T06:25:00Z",
+                "ExpectedDepartureTime": "2025-05-13T06:25:00Z"
+              },
+              "OnwardCalls": {
+                "OnwardCall": [
+                  {
+                    "StopPointRef": "70022",
+                    "StopPointName": "22nd Street Caltrain Station Southbound",
+                    "DestinationDisplay": "San Jose Diridon",
+                    "AimedArrivalTime": "2025-05-13T06:30:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:29:30Z",
+                    "AimedDepartureTime": "2025-05-13T06:30:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:30:30Z"
+                  },
+                  {
+                    "StopPointRef": "70032",
+                    "StopPointName": "Bayshore Caltrain Station Southbound",
+                    "DestinationDisplay": "San Jose Diridon",
+                    "AimedArrivalTime": "2025-05-13T06:34:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:33:54Z",
+                    "AimedDepartureTime": "2025-05-13T06:34:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:34:54Z"
+                  },
+                  {
+                    "StopPointRef": "70042",
+                    "StopPointName": "South San Francisco Caltrain Station Southbound",
+                    "DestinationDisplay": "San Jose Diridon",
+                    "AimedArrivalTime": "2025-05-13T06:40:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:39:00Z",
+                    "AimedDepartureTime": "2025-05-13T06:40:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:40:00Z"
+                  },
+                  {
+                    "StopPointRef": "70052",
+                    "StopPointName": "San Bruno Caltrain Station Southbound",
+                    "DestinationDisplay": "San Jose Diridon",
+                    "AimedArrivalTime": "2025-05-13T06:43:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:42:00Z",
+                    "AimedDepartureTime": "2025-05-13T06:43:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:43:00Z"
+                  },
+                  {
+                    "StopPointRef": "70062",
+                    "StopPointName": "Millbrae Caltrain Station Southbound",
+                    "DestinationDisplay": "San Jose Diridon",
+                    "AimedArrivalTime": "2025-05-13T06:46:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:45:42Z",
+                    "AimedDepartureTime": "2025-05-13T06:46:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:46:42Z"
+                  },
+                  {
+                    "StopPointRef": "70082",
+                    "StopPointName": "Burlingame Caltrain Station Southbound",
+                    "DestinationDisplay": "San Jose Diridon",
+                    "AimedArrivalTime": "2025-05-13T06:50:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:49:24Z",
+                    "AimedDepartureTime": "2025-05-13T06:50:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:50:24Z"
+                  },
+                  {
+                    "StopPointRef": "70092",
+                    "StopPointName": "San Mateo Caltrain Station Southbound",
+                    "DestinationDisplay": "San Jose Diridon",
+                    "AimedArrivalTime": "2025-05-13T06:53:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:52:00Z",
+                    "AimedDepartureTime": "2025-05-13T06:53:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:53:00Z"
+                  },
+                  {
+                    "StopPointRef": "70102",
+                    "StopPointName": "Hayward Park Caltrain Station Southbound",
+                    "DestinationDisplay": "San Jose Diridon",
+                    "AimedArrivalTime": "2025-05-13T06:55:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:54:30Z",
+                    "AimedDepartureTime": "2025-05-13T06:55:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:55:30Z"
+                  },
+                  {
+                    "StopPointRef": "70112",
+                    "StopPointName": "Hillsdale Caltrain Station Southbound",
+                    "DestinationDisplay": "San Jose Diridon",
+                    "AimedArrivalTime": "2025-05-13T06:57:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T06:56:54Z",
+                    "AimedDepartureTime": "2025-05-13T06:57:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T06:57:54Z"
+                  },
+                  {
+                    "StopPointRef": "70122",
+                    "StopPointName": "Belmont Caltrain Station Southbound",
+                    "DestinationDisplay": "San Jose Diridon",
+                    "AimedArrivalTime": "2025-05-13T07:01:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T07:00:00Z",
+                    "AimedDepartureTime": "2025-05-13T07:01:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T07:01:00Z"
+                  },
+                  {
+                    "StopPointRef": "70132",
+                    "StopPointName": "San Carlos Caltrain Station Southbound",
+                    "DestinationDisplay": "San Jose Diridon",
+                    "AimedArrivalTime": "2025-05-13T07:03:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T07:02:30Z",
+                    "AimedDepartureTime": "2025-05-13T07:03:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T07:03:30Z"
+                  },
+                  {
+                    "StopPointRef": "70142",
+                    "StopPointName": "Redwood City Caltrain Station Southbound",
+                    "DestinationDisplay": "San Jose Diridon",
+                    "AimedArrivalTime": "2025-05-13T07:07:00Z",
+                    "ExpectedArrivalTime": "2025-05-13T07:06:00Z",
+                    "AimedDepartureTime": "2025-05-13T07:07:00Z",
+                    "ExpectedDepartureTime": "2025-05-13T07:07:00Z"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

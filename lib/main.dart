@@ -7,7 +7,8 @@ import 'package:http/http.dart' as http;
 
 // Debug params
 const String apiKey = '7f3f26c8-c002-4131-9bc0-5794d15893ef';
-const bool debug = false;
+const bool debugTimeOfDay = false;
+const bool debugAPIRequest = false;
 const String debugTimeString = "10:30 AM";
 const double fontSize = 15;
 
@@ -38,6 +39,50 @@ class CaltrainHomePage extends StatefulWidget {  // Inherits stateful widget
   State<CaltrainHomePage> createState() => _CaltrainHomePageState();  // Overrid the base class with this function for createState
 }
 
+Future<Map<String, dynamic>> getVehicleData({bool debugRealtime = false}) async {
+  
+  // Debug support for getting a predefined late Caltrain schedule
+  // Train 168 heading southbound should be late
+  if (debugRealtime) {
+    final String response = await rootBundle.loadString('assets/data/debug_vehicle_monitoring.json');
+    return json.decode(response);
+
+  // Load from API using a URL request
+  } else {
+    
+    final uri = Uri.https('api.511.org', '/transit/VehicleMonitoring', {'api_key': apiKey, 'agency': 'CT',},);
+    final response = await http.get(uri);
+
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      throw Exception('Failed to load data from API');
+    }
+  }
+}
+
+Future<Map<String, int>> fetchDelayByVehicleRef() async {
+
+  final data = await getVehicleData(debugRealtime: debugAPIRequest); // or false for live
+  final vehicleActivities = data['Siri']['ServiceDelivery']['VehicleMonitoringDelivery']['VehicleActivity'];
+  Map<String, int> delayByVehicleRef = {};
+
+  for (var activity in vehicleActivities) {
+    final journey = activity['MonitoredVehicleJourney'];
+    final vehicleRef = journey['VehicleRef'];
+
+    // Departure delay
+    final aimed = DateTime.parse(journey['MonitoredCall']['AimedDepartureTime']);
+    final expected = DateTime.parse(journey['MonitoredCall']['ExpectedDepartureTime']);
+
+    final delayMinutes = expected.difference(aimed).inMinutes;
+    delayByVehicleRef[vehicleRef] = delayMinutes > 0 ? delayMinutes : 0;
+  }
+
+  return delayByVehicleRef;
+  
+}
+
 class _CaltrainHomePageState extends State<CaltrainHomePage> {
   List<String> stations = [];
   List<dynamic> schedule = [];  // Unsure what's going to be in this list, so call it dynamic
@@ -46,6 +91,7 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
 
   String? selectedStart; // Can be empty, or can be a string
   String? selectedEnd;
+  bool delayed = false;
 
   final List<GlobalKey> _trainKeys = [];
 
@@ -69,6 +115,8 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
     }
 
     final data = json.decode(response.body);
+    final prettyJson = const JsonEncoder.withIndent('  ').convert(data);
+    print('--- Pretty Printed API Response ---\n$prettyJson');
 
     final activities = data['Siri']['ServiceDelivery']['VehicleMonitoringDelivery'][0]['VehicleActivity'];
     final Map<String, String> delayedTrains = {};
@@ -136,6 +184,7 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
       stations = sortedStations;
       selectedStart = stations.first;
       selectedEnd = stations.last;
+      delayed = false;
     });
 
     final prefs = await SharedPreferences.getInstance();
@@ -148,7 +197,8 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
 
   Future<List<Map<String, dynamic>>> getFilteredTrains() async {
 
-    final delayMap = await fetchLiveDelays(); // trainId → updated time
+    // Get live train data
+    final delayMap = await fetchDelayByVehicleRef(); // Use in init or provider
 
     if (selectedStart == null || selectedEnd == null) return [];
 
@@ -160,7 +210,7 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
     final goingSouth = startIndex < endIndex;
     final schedule = goingSouth ? southboundSchedule : northboundSchedule;
 
-    final now = debug ? _parseTime(debugTimeString) : TimeOfDay.now();
+    final now = debugTimeOfDay ? _parseTime(debugTimeString) : TimeOfDay.now();
     // print(now, TimeOfDay.now());
     print('$now ${TimeOfDay.now()}');
 
@@ -187,52 +237,74 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
 
       if (startIndex >= endIndex) return false; // train doesn't go in desired direction
 
+      // Read and parse start/end times
       final startTimeStr = startStop['time'];
       final endTimeStr = endStop['time'];
 
       final startTime = _parseTime(startTimeStr);
+      final endTime = _parseTime(endTimeStr);
 
-      final duration = _durationInMinutes(startTimeStr, endTimeStr);
+      // Get stats
+      final duration = _durationInMinutes(startTime, endTime);
       final isPast = _isTimeBefore(now, startTime);
 
       final trainId = train['train'].toString();
-      final liveTime = delayMap[trainId];
+      final delay = delayMap[trainId];
 
-      if (liveTime != null) {
-        train['startTime'] = liveTime;
-        train['isDelayed'] = true;
-      } else {
-        train['startTime'] = startTimeStr;
-        train['isDelayed'] = false;
-      }
-
-      // train['startTime'] = startTimeStr;
+      // Set card properties
+      train['startTime'] = startTimeStr;
       train['endTime'] = endTimeStr;
       train['duration'] = duration;
       train['isPast'] = isPast;
       train['isDelayed'] = false;
 
-      // print(startTimeStr);
-      // print(duration);
-      // print(endTimeStr);
-      // print(" ");
+      // If train is delayed and hasn't already left
+      if (delay != null && isPast) {
+        if (delay > 0) {
+          TimeOfDay newStartTime = _addMinutes(startTime, delay);
+          TimeOfDay newEndTime = _addMinutes(endTime, delay);
+
+          train['startTime'] = _formatTimeOfDay(newStartTime);
+          train['endTime'] = _formatTimeOfDay(newEndTime);
+          train['isDelayed'] = true;
+        }
+      }
 
       return true;
     }).map<Map<String, dynamic>>((train) => Map<String, dynamic>.from(train)).toList();
   }
 
-  int _durationInMinutes(String startTimeStr, String endTimeStr) {
-    final start = _parseTime(startTimeStr);
-    final end = _parseTime(endTimeStr);
-
-    // print(start);
-    // print(end);
-
-    final startDate = DateTime(2024, 1, 1, start.hour, start.minute);
-    final endDate = DateTime(2024, 1, 1, end.hour, end.minute);
-
+  int _durationInMinutes(TimeOfDay startTime, TimeOfDay endTime) {
+    
+    final startDate = DateTime(2024, 1, 1, startTime.hour, startTime.minute);
+    final endDate = DateTime(2024, 1, 1, endTime.hour, endTime.minute);
     final duration = endDate.difference(startDate).inMinutes;
+
     return duration > 0 ? duration : 0;
+  }
+
+  TimeOfDay _addMinutes(TimeOfDay startTime, int minutes) {
+    
+    final startDate = DateTime(2024, 1, 1, startTime.hour, startTime.minute);
+    final endDate = startDate.add(Duration(minutes: minutes));
+    final endTime = TimeOfDay(hour: endDate.hour, minute: endDate.minute);
+
+    return endTime;
+  }
+
+  String _formatTimeOfDay(TimeOfDay time) {
+    int hour = time.hour;
+    int minute = time.minute;
+
+    // Handle early morning (24–27) wrapped hours
+    if (hour >= 24) {hour -= 24;}
+
+    String suffix = hour >= 12 ? 'PM' : 'AM';
+    int hour12 = hour % 12;
+    if (hour12 == 0) hour12 = 12;
+
+    String minuteStr = minute.toString().padLeft(2, '0');
+    return '$hour12:$minuteStr $suffix';
   }
 
   TimeOfDay _parseTime(String timeStr) {
@@ -355,7 +427,7 @@ Widget build(BuildContext context) {
                       }
 
                       WidgetsBinding.instance.addPostFrameCallback((_) {
-                        final now = debug ? _parseTime(debugTimeString) : TimeOfDay.now();
+                        final now = debugTimeOfDay ? _parseTime(debugTimeString) : TimeOfDay.now();
                         final firstFutureIndex = trains.indexWhere((t) {
                           final time = _parseTime(t['startTime']);
                           return _isTimeBefore(now, time);
@@ -381,7 +453,11 @@ Widget build(BuildContext context) {
                           final isPast = train['isPast'] == true;
                           final isDelayed = train['isDelayed'] == true;
 
-                          final textColor = isDelayed
+                          final textColor = isPast
+                              ? Colors.black
+                              : Colors.grey;
+                          
+                          final timeTextColor = isDelayed
                               ? Colors.red
                               : isPast
                                   ? Colors.black
@@ -408,12 +484,12 @@ Widget build(BuildContext context) {
                                     children: [
                                       Text(
                                         '${train['startTime']} → ${train['endTime']}',
-                                        style: TextStyle(color: textColor, fontSize: fontSize),
+                                        style: TextStyle(color: timeTextColor, fontSize: fontSize),
                                       ),
                                       const SizedBox(width: 8),
                                       Text(
                                         '${train['duration']} min',
-                                        style: TextStyle(color: textColor, fontStyle: FontStyle.italic, fontSize: fontSize),
+                                        style: TextStyle(color: timeTextColor, fontStyle: FontStyle.italic, fontSize: fontSize),
                                       ),
                                     ],
                                   ),
