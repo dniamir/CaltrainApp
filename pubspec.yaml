@@ -72,6 +72,8 @@ flutter:
   assets:
   - assets/data/caltrain_northbound_weekday.json
   - assets/data/caltrain_southbound_weekday.json
+  - assets/data/caltrain_northbound_weekend.json
+  - assets/data/caltrain_southbound_weekend.json
   - assets/data/caltrain_station_order.csv
 
   # An image asset can refer to one or more resolution-specific "variants", see
