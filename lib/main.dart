@@ -261,16 +261,20 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
       train['duration'] = duration;
       train['isPast'] = isPast;
       train['isDelayed'] = false;
+      train['durationDelayed'] = false;
 
       // If train is delayed and hasn't already left
       if (delay != null && isPast) {
         if (delay > 0) {
           TimeOfDay newStartTime = _addMinutes(startTime, delay);
           TimeOfDay newEndTime = _addMinutes(endTime, delay);
+          final durationDelayed = _durationInMinutes(newStartTime, newEndTime);
 
           train['startTime'] = _formatTimeOfDay(newStartTime);
           train['endTime'] = _formatTimeOfDay(newEndTime);
           train['isDelayed'] = true;
+          train['durationDelayed'] = durationDelayed > duration;
+
         }
       }
 
@@ -281,13 +285,13 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
   int _durationInMinutes(TimeOfDay startTime, TimeOfDay endTime) {
     
     // Make exception for early morning hours
-    int start_day = 1;
-    int end_day = 1;
-    if (startTime.hour < 4) {start_day = 2;};
-    if (endTime.hour < 4) {end_day = 2;};
+    int startDay = 1;
+    int endDay = 1;
+    if (startTime.hour < 4) {startDay = 2;};
+    if (endTime.hour < 4) {endDay = 2;};
 
-    final startDate = DateTime(2024, 1, start_day, startTime.hour, startTime.minute);
-    final endDate = DateTime(2024, 1, end_day, endTime.hour, endTime.minute);
+    final startDate = DateTime(2024, 1, startDay, startTime.hour, startTime.minute);
+    final endDate = DateTime(2024, 1, endDay, endTime.hour, endTime.minute);
     final duration = endDate.difference(startDate).inMinutes;
 
     return duration > 0 ? duration : 0;
@@ -462,12 +466,19 @@ Widget build(BuildContext context) {
                           final train = trains[index];
                           final isPast = train['isPast'] == true;
                           final isDelayed = train['isDelayed'] == true;
+                          final durationDelayed = train['durationDelayed'] == true;
 
                           final textColor = isPast
                               ? Colors.black
                               : Colors.grey;
                           
                           final timeTextColor = isDelayed
+                              ? Colors.red
+                              : isPast
+                                  ? Colors.black
+                                  : Colors.grey;
+
+                          final durationTextColor = durationDelayed
                               ? Colors.red
                               : isPast
                                   ? Colors.black
@@ -499,7 +510,7 @@ Widget build(BuildContext context) {
                                       const SizedBox(width: 8),
                                       Text(
                                         '${train['duration']} min',
-                                        style: TextStyle(color: timeTextColor, fontStyle: FontStyle.italic, fontSize: fontSize),
+                                        style: TextStyle(color: durationTextColor, fontStyle: FontStyle.italic, fontSize: fontSize),
                                       ),
                                     ],
                                   ),
