@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 
 // Debug params
 const String apiKey = '7f3f26c8-c002-4131-9bc0-5794d15893ef';
-const bool debugTimeOfDay = false;
+const bool debugTimeOfDay = true;
 const bool debugAPIRequest = true;
 const String debugTimeString = "10:30 AM";
 const double fontSize = 15;
@@ -64,7 +64,14 @@ Future<Map<String, dynamic>> getVehicleData({bool debugRealtime = false}) async 
 Future<Map<String, int>> fetchDelayByVehicleRef() async {
 
   final data = await getVehicleData(debugRealtime: debugAPIRequest); // or false for live
-  final vehicleActivities = data['Siri']['ServiceDelivery']['VehicleMonitoringDelivery']['VehicleActivity'];
+  
+  // Return empty map if data from API is not available
+  final delivery = data['Siri']?['ServiceDelivery']?['VehicleMonitoringDelivery'];
+  if (delivery == null || delivery['VehicleActivity'] == null) {
+    return {}; // Return an empty delay map if there's no data
+  }  
+  final vehicleActivities = delivery['VehicleActivity'];
+  
   Map<String, int> delayByVehicleRef = {};
 
   for (var activity in vehicleActivities) {
@@ -102,41 +109,6 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
     super.initState();
     loadAssets();
   }
-
-  Future<Map<String, String>> fetchLiveDelays() async {
-  final url = Uri.parse('https://api.511.org/transit/vehicle-monitoring?agency=CT&api_key=$apiKey');
-
-  try {
-    final response = await http.get(url);
-
-    if (response.statusCode != 200) {
-      print('Failed to fetch live data: ${response.statusCode}');
-      return {};
-    }
-
-    final data = json.decode(response.body);
-    final prettyJson = const JsonEncoder.withIndent('  ').convert(data);
-    print('--- Pretty Printed API Response ---\n$prettyJson');
-
-    final activities = data['Siri']['ServiceDelivery']['VehicleMonitoringDelivery'][0]['VehicleActivity'];
-    final Map<String, String> delayedTrains = {};
-
-    for (final activity in activities) {
-      final journey = activity['MonitoredVehicleJourney'];
-      final trainId = journey['PublishedLineName'];
-      final expectedDeparture = journey['MonitoredCall']?['ExpectedDepartureTime'];
-
-      if (expectedDeparture != null) {
-        delayedTrains[trainId] = expectedDeparture;
-      }
-    }
-
-    return delayedTrains;
-  } catch (e) {
-    print('Error fetching live delays: $e');
-    return {};
-  }
-}
 
   Future<void> loadAssets() async {
     
@@ -211,8 +183,6 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
     final schedule = goingSouth ? southboundSchedule : northboundSchedule;
 
     final now = debugTimeOfDay ? _parseTime(debugTimeString) : TimeOfDay.now();
-    // print(now, TimeOfDay.now());
-    print('$now ${TimeOfDay.now()}');
 
     final scrollToIndex = schedule.indexWhere((train) {
       final stops = train['stops'] as List;
@@ -253,8 +223,6 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
       // final isPast = _isTimeBefore(now, startTime);
       bool isPast = _durationInMinutes(startTime, now) > 0;
 
-
-
       // Set card properties
       train['startTime'] = startTimeStr;
       train['endTime'] = endTimeStr;
@@ -264,7 +232,7 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
       train['durationDelayed'] = false;
 
       // If train is delayed and hasn't already left
-      if (delay != null && isPast) {
+      if (delay != null && !isPast) {
         if (delay > 0) {
           TimeOfDay newStartTime = _addMinutes(startTime, delay);
           TimeOfDay newEndTime = _addMinutes(endTime, delay);
@@ -464,29 +432,29 @@ Widget build(BuildContext context) {
                         itemBuilder: (context, index) {
                           final key = _trainKeys[index];
                           final train = trains[index];
-                          final isPast = train['isPast'] == true;
-                          final isDelayed = train['isDelayed'] == true;
-                          final durationDelayed = train['durationDelayed'] == true;
+                          final isPast = train['isPast'];
+                          final isDelayed = train['isDelayed'];
+                          final durationDelayed = train['durationDelayed'];
 
                           final textColor = isPast
-                              ? Colors.black
-                              : Colors.grey;
+                              ? Colors.grey
+                              : Colors.black;
                           
                           final timeTextColor = isDelayed
                               ? Colors.red
                               : isPast
-                                  ? Colors.black
-                                  : Colors.grey;
+                                  ? Colors.grey
+                                  : Colors.black;
 
                           final durationTextColor = durationDelayed
                               ? Colors.red
                               : isPast
-                                  ? Colors.black
-                                  : Colors.grey;
+                                  ? Colors.grey
+                                  : Colors.black;
 
                           final backgroundColor = isPast
-                              ? Colors.white
-                              : Colors.grey.shade800;
+                              ? Colors.grey.shade800
+                              : Colors.white;
 
                           return Card(
                             color: backgroundColor,
