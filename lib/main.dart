@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 // Debug params
 const String apiKey = '7f3f26c8-c002-4131-9bc0-5794d15893ef';
 const bool debugTimeOfDay = false;
-const bool debugAPIRequest = false;
+const bool debugAPIRequest = true;
 const String debugTimeString = "10:30 AM";
 const double fontSize = 15;
 
@@ -178,18 +178,18 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
 
     final sortedStations = orderedStations.where((s) => usedStations.contains(s)).toList();
 
+    final prefs = await SharedPreferences.getInstance();
+    final from = prefs.getString('default_from');
+    final to = prefs.getString('default_to');
+
     setState(() {
       northboundSchedule = loadedNorth;
       southboundSchedule = loadedSouth;
       stations = sortedStations;
-      selectedStart = stations.first;
-      selectedEnd = stations.last;
+      selectedStart = stations.contains(from) ? from : stations.first;
+      selectedEnd = stations.contains(to) ? to : stations.last;
       delayed = false;
     });
-
-    final prefs = await SharedPreferences.getInstance();
-    final from = prefs.getString('default_from');
-    final to = prefs.getString('default_to');
 
     selectedStart = stations.contains(from) ? from : stations.first;
     selectedEnd = stations.contains(to) ? to : stations.last;
@@ -227,6 +227,10 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
       final stops = train['stops'] as List;
       final stopNames = stops.map((s) => s['station']).toList();
 
+      // Get train ID and delay map
+      final trainId = train['train'].toString();
+      final delay = delayMap[trainId];
+
       if (!stopNames.contains(selectedStart) || !stopNames.contains(selectedEnd)) return false;
 
       final startStop = stops.firstWhere((s) => s['station'] == selectedStart);
@@ -246,10 +250,10 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
 
       // Get stats
       final duration = _durationInMinutes(startTime, endTime);
-      final isPast = _isTimeBefore(now, startTime);
+      // final isPast = _isTimeBefore(now, startTime);
+      bool isPast = _durationInMinutes(startTime, now) > 0;
 
-      final trainId = train['train'].toString();
-      final delay = delayMap[trainId];
+
 
       // Set card properties
       train['startTime'] = startTimeStr;
@@ -276,8 +280,14 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
 
   int _durationInMinutes(TimeOfDay startTime, TimeOfDay endTime) {
     
-    final startDate = DateTime(2024, 1, 1, startTime.hour, startTime.minute);
-    final endDate = DateTime(2024, 1, 1, endTime.hour, endTime.minute);
+    // Make exception for early morning hours
+    int start_day = 1;
+    int end_day = 1;
+    if (startTime.hour < 4) {start_day = 2;};
+    if (endTime.hour < 4) {end_day = 2;};
+
+    final startDate = DateTime(2024, 1, start_day, startTime.hour, startTime.minute);
+    final endDate = DateTime(2024, 1, end_day, endTime.hour, endTime.minute);
     final duration = endDate.difference(startDate).inMinutes;
 
     return duration > 0 ? duration : 0;
@@ -315,11 +325,11 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
     int minute = int.parse(match[2]!);
     bool isPM = match[3]!.toLowerCase() == 'p';
 
-    bool isEarlyMorning = hour <= 3;
+    // bool isEarlyMorning = hour <= 3;
 
     if (isPM && hour != 12) hour += 12;
     if (!isPM && hour == 12) hour += 12;
-    if (!isPM && isEarlyMorning) hour += 24;
+    // if (!isPM && isEarlyMorning) hour += 24;
 
     return TimeOfDay(hour: hour, minute: minute);
   }
