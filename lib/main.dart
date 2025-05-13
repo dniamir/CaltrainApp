@@ -5,8 +5,8 @@ import 'package:caltrain_app/settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
+// Debug params
 const String apiKey = '7f3f26c8-c002-4131-9bc0-5794d15893ef';
-
 const bool debug = false;
 const String debugTimeString = "10:30 AM";
 const double fontSize = 15;
@@ -91,8 +91,24 @@ class _CaltrainHomePageState extends State<CaltrainHomePage> {
 }
 
   Future<void> loadAssets() async {
-    final northboundJson = await rootBundle.loadString('assets/data/caltrain_northbound_weekday.json');
-    final southboundJson = await rootBundle.loadString('assets/data/caltrain_southbound_weekday.json');
+    
+    // Check if it's a weekday or weekend (minus 3 hours)
+    final now = DateTime.now().subtract(const Duration(hours: 3));
+    final isWeekend = now.weekday == DateTime.saturday || now.weekday == DateTime.sunday;
+
+    // Load schedule based on weekday vs weekend
+    final northboundJson = await rootBundle.loadString(
+      isWeekend
+          ? 'assets/data/caltrain_northbound_weekend.json'
+          : 'assets/data/caltrain_northbound_weekday.json',
+    );
+    final southboundJson = await rootBundle.loadString(
+      isWeekend
+          ? 'assets/data/caltrain_southbound_weekend.json'
+          : 'assets/data/caltrain_southbound_weekday.json',
+    );
+
+    // Load caltrain stations
     final stationCsv = await rootBundle.loadString('assets/data/caltrain_station_order.csv');
 
     final loadedNorth = json.decode(northboundJson);
