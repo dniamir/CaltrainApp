@@ -7,8 +7,8 @@ import 'package:http/http.dart' as http;
 
 // Debug params
 const String apiKey = '7f3f26c8-c002-4131-9bc0-5794d15893ef';
-const bool debugTimeOfDay = true;
-const bool debugAPIRequest = true;
+const bool debugTimeOfDay = false;
+const bool debugAPIRequest = false;
 const String debugTimeString = "10:30 AM";
 const double fontSize = 15;
 
