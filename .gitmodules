@@ -1,0 +1,3 @@
+[submodule "FlutterCommands"]
+	path = FlutterCommands
+	url = https://dniamir@github.com/dniamir/FlutterCommands.git
