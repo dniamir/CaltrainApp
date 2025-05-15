@@ -1,4 +1,4 @@
-package com.example.caltrain_app
+package com.engineeringoutdoors.caltrainplanner
 
 import io.flutter.embedding.android.FlutterActivity
 
