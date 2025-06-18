@@ -181,11 +181,7 @@
       },
       {
         "station": "San Jose Diridon",
-        "time": "7:03 AM"
-      },
-      {
-        "station": "Tamien",
-        "time": "7:08 AM"
+        "time": "6:52 AM"
       }
     ]
   },
@@ -493,11 +489,7 @@
       },
       {
         "station": "San Jose Diridon",
-        "time": "8:23 AM"
-      },
-      {
-        "station": "Tamien",
-        "time": "8:28 AM"
+        "time": "8:14 AM"
       }
     ]
   },
@@ -802,10 +794,6 @@
       {
         "station": "San Jose Diridon",
         "time": "9:13 AM"
-      },
-      {
-        "station": "Tamien",
-        "time": "9:18 AM"
       }
     ]
   },
@@ -1110,10 +1098,6 @@
       {
         "station": "San Jose Diridon",
         "time": "10:13 AM"
-      },
-      {
-        "station": "Tamien",
-        "time": "10:18 AM"
       }
     ]
   },
@@ -1300,10 +1284,6 @@
       {
         "station": "San Jose Diridon",
         "time": "11:13 AM"
-      },
-      {
-        "station": "Tamien",
-        "time": "11:18 AM"
       }
     ]
   },
@@ -1490,10 +1470,6 @@
       {
         "station": "San Jose Diridon",
         "time": "12:13 PM"
-      },
-      {
-        "station": "Tamien",
-        "time": "12:18 PM"
       }
     ]
   },
@@ -1680,10 +1656,6 @@
       {
         "station": "San Jose Diridon",
         "time": "1:13 PM"
-      },
-      {
-        "station": "Tamien",
-        "time": "1:18 PM"
       }
     ]
   },
@@ -1870,10 +1842,6 @@
       {
         "station": "San Jose Diridon",
         "time": "2:13 PM"
-      },
-      {
-        "station": "Tamien",
-        "time": "2:18 PM"
       }
     ]
   },
@@ -2060,10 +2028,6 @@
       {
         "station": "San Jose Diridon",
         "time": "3:13 PM"
-      },
-      {
-        "station": "Tamien",
-        "time": "3:18 PM"
       }
     ]
   },
@@ -2254,10 +2218,6 @@
       {
         "station": "San Jose Diridon",
         "time": "4:14 PM"
-      },
-      {
-        "station": "Tamien",
-        "time": "4:19 PM"
       }
     ]
   },
@@ -2628,10 +2588,6 @@
       {
         "station": "San Jose Diridon",
         "time": "5:13 PM"
-      },
-      {
-        "station": "Tamien",
-        "time": "5:18 PM"
       }
     ]
   },
@@ -2969,10 +2925,6 @@
       {
         "station": "San Jose Diridon",
         "time": "6:13 PM"
-      },
-      {
-        "station": "Tamien",
-        "time": "6:18 PM"
       }
     ]
   },
@@ -3310,10 +3262,6 @@
       {
         "station": "San Jose Diridon",
         "time": "7:13 PM"
-      },
-      {
-        "station": "Tamien",
-        "time": "7:18 PM"
       }
     ]
   },
@@ -3618,10 +3566,6 @@
       {
         "station": "San Jose Diridon",
         "time": "8:13 PM"
-      },
-      {
-        "station": "Tamien",
-        "time": "8:18 PM"
       }
     ]
   },
@@ -3808,10 +3752,6 @@
       {
         "station": "San Jose Diridon",
         "time": "9:13 PM"
-      },
-      {
-        "station": "Tamien",
-        "time": "9:18 PM"
       }
     ]
   },
@@ -3998,10 +3938,6 @@
       {
         "station": "San Jose Diridon",
         "time": "10:13 PM"
-      },
-      {
-        "station": "Tamien",
-        "time": "10:18 PM"
       }
     ]
   },
@@ -4188,10 +4124,6 @@
       {
         "station": "San Jose Diridon",
         "time": "11:13 PM"
-      },
-      {
-        "station": "Tamien",
-        "time": "11:18 PM"
       }
     ]
   },
@@ -4378,10 +4310,6 @@
       {
         "station": "San Jose Diridon",
         "time": "12:13 AM"
-      },
-      {
-        "station": "Tamien",
-        "time": "12:18 AM"
       }
     ]
   },
@@ -4568,10 +4496,6 @@
       {
         "station": "San Jose Diridon",
         "time": "1:23 AM"
-      },
-      {
-        "station": "Tamien",
-        "time": "1:28 AM"
       }
     ]
   }

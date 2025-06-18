@@ -3,10 +3,6 @@
     "train": "101",
     "stops": [
       {
-        "station": "Tamien",
-        "time": "4:37 AM"
-      },
-      {
         "station": "San Jose Diridon",
         "time": "4:43 AM"
       },
@@ -261,10 +257,6 @@
   {
     "train": "105",
     "stops": [
-      {
-        "station": "Tamien",
-        "time": "5:52 AM"
-      },
       {
         "station": "San Jose Diridon",
         "time": "5:58 AM"
@@ -602,10 +594,6 @@
   {
     "train": "109",
     "stops": [
-      {
-        "station": "Tamien",
-        "time": "6:52 AM"
-      },
       {
         "station": "San Jose Diridon",
         "time": "6:58 AM"
@@ -977,10 +965,6 @@
     "train": "113",
     "stops": [
       {
-        "station": "Tamien",
-        "time": "7:47 AM"
-      },
-      {
         "station": "San Jose Diridon",
         "time": "7:53 AM"
       },
@@ -1322,10 +1306,6 @@
     "train": "117",
     "stops": [
       {
-        "station": "Tamien",
-        "time": "8:52 AM"
-      },
-      {
         "station": "San Jose Diridon",
         "time": "8:58 AM"
       },
@@ -1511,10 +1491,6 @@
   {
     "train": "121",
     "stops": [
-      {
-        "station": "Tamien",
-        "time": "9:52 AM"
-      },
       {
         "station": "San Jose Diridon",
         "time": "9:58 AM"
@@ -1702,10 +1678,6 @@
     "train": "125",
     "stops": [
       {
-        "station": "Tamien",
-        "time": "10:52 AM"
-      },
-      {
         "station": "San Jose Diridon",
         "time": "10:58 AM"
       },
@@ -1891,10 +1863,6 @@
   {
     "train": "129",
     "stops": [
-      {
-        "station": "Tamien",
-        "time": "11:52 AM"
-      },
       {
         "station": "San Jose Diridon",
         "time": "11:58 AM"
@@ -2082,10 +2050,6 @@
     "train": "133",
     "stops": [
       {
-        "station": "Tamien",
-        "time": "12:52 PM"
-      },
-      {
         "station": "San Jose Diridon",
         "time": "12:58 PM"
       },
@@ -2272,10 +2236,6 @@
     "train": "137",
     "stops": [
       {
-        "station": "Tamien",
-        "time": "1:52 PM"
-      },
-      {
         "station": "San Jose Diridon",
         "time": "1:58 PM"
       },
@@ -2461,10 +2421,6 @@
   {
     "train": "141",
     "stops": [
-      {
-        "station": "Tamien",
-        "time": "2:47 PM"
-      },
       {
         "station": "San Jose Diridon",
         "time": "2:53 PM"
@@ -2774,10 +2730,6 @@
     "train": "145",
     "stops": [
       {
-        "station": "Tamien",
-        "time": "3:52 PM"
-      },
-      {
         "station": "San Jose Diridon",
         "time": "3:58 PM"
       },
@@ -3081,10 +3033,6 @@
   {
     "train": "149",
     "stops": [
-      {
-        "station": "Tamien",
-        "time": "4:52 PM"
-      },
       {
         "station": "San Jose Diridon",
         "time": "4:58 PM"
@@ -3390,10 +3338,6 @@
     "train": "153",
     "stops": [
       {
-        "station": "Tamien",
-        "time": "5:52 PM"
-      },
-      {
         "station": "San Jose Diridon",
         "time": "5:58 PM"
       },
@@ -3698,10 +3642,6 @@
     "train": "157",
     "stops": [
       {
-        "station": "Tamien",
-        "time": "6:52 PM"
-      },
-      {
         "station": "San Jose Diridon",
         "time": "6:58 PM"
       },
@@ -3887,10 +3827,6 @@
   {
     "train": "161",
     "stops": [
-      {
-        "station": "Tamien",
-        "time": "7:52 PM"
-      },
       {
         "station": "San Jose Diridon",
         "time": "7:58 PM"
@@ -4078,10 +4014,6 @@
     "train": "165",
     "stops": [
       {
-        "station": "Tamien",
-        "time": "8:52 PM"
-      },
-      {
         "station": "San Jose Diridon",
         "time": "8:58 PM"
       },
@@ -4268,10 +4200,6 @@
     "train": "169",
     "stops": [
       {
-        "station": "Tamien",
-        "time": "9:52 PM"
-      },
-      {
         "station": "San Jose Diridon",
         "time": "9:58 PM"
       },
@@ -4457,10 +4385,6 @@
   {
     "train": "173",
     "stops": [
-      {
-        "station": "Tamien",
-        "time": "11:24 PM"
-      },
       {
         "station": "San Jose Diridon",
         "time": "11:30 PM"
